@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        async function fetchData() {
+            const url = 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=1';
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '906daa7dfbmsh866b26b3abd48e4p1e469fjsna1cc01584116',
+                    'X-RapidAPI-Host': 'jobsearch4.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                console.log(result.data);
+                const myMap = new Map();
+                const newMap = new Map();
+
+
+                result.data.forEach(item => {
+                    const key = item.id; // Assuming 'id' is the key property
+                    const value = item.title;
+                    item.tags.forEach(i => {
+                    const key = item.id; // Assuming 'id' is the key property
+                    const value = i.text;
+                     // Assuming 'tile' is the property you want to store in the map
+                     newMap.set(key, value);
+                });
+                     // Assuming 'tile' is the property you want to store in the map
+                    myMap.set(key, value);
+                });
+
+                // Accessing a specific tile from the map
+                // const tileId = 631768; // Assuming you want to access the tile with the ID 123
+                // const title = myMap.get(tileId);
+                myMap.forEach((value, key) => {
+                    newMap.forEach((value, key) => {
+                    
+                    console.log(`Key: ${key}, Value: ${value}`);
+                    });
+                // console.log(`Key: ${key}, Value: ${value}`);
+                });
+
+                console.log(title);
+                } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchData();
+        
+    </script>
+</head>
+<body>
+    <h1>Just random HTML</h1>
+</body>
+</html>
