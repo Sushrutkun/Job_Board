@@ -7,7 +7,7 @@
     <title>Document</title>
     <script>
         async function fetchData() {
-            const url = 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=1';
+            const url = 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java';
             const options = {
                 method: 'GET',
                 headers: {
@@ -19,7 +19,7 @@
             try {
                 const response = await fetch(url, options);
                 const result = await response.json();
-                console.log(result.data);
+                console.log(result);
                 const myMap = new Map();
                 const newMap = new Map();
 
@@ -40,13 +40,13 @@
                 // Accessing a specific tile from the map
                 // const tileId = 631768; // Assuming you want to access the tile with the ID 123
                 // const title = myMap.get(tileId);
-                myMap.forEach((value, key) => {
-                    newMap.forEach((value, key) => {
-                    
-                    console.log(`Key: ${key}, Value: ${value}`);
-                    });
+                                                // myMap.forEach((value, key) => {
+                                                //     newMap.forEach((value, key) => {
+                                                    
+                                                //     console.log(`Key: ${key}, Value: ${value}`);
+                                                //     });
                 // console.log(`Key: ${key}, Value: ${value}`);
-                });
+                // });
 
                 console.log(title);
                 } catch (error) {

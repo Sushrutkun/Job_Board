@@ -7,6 +7,8 @@ import Searchbar from './components/searchbar';
 import theme from './theme/theme' 
 import JobCard from './components/Job/JobCard';
 import jobdata from './dummyData'
+import AppPagination from './components/Job/pagination';
+// import AppPagination from './components/pagination';
 
 
 
@@ -21,7 +23,9 @@ function App()
           <Grid item xs={10}>
 
             <Searchbar/>
-            {jobdata.map(job => <JobCard key={job.id}{...job}/>)}
+            {/* {jobdata.map(job => <JobCard key={job.id}{...job}/>)} */}
+            <JobCard/>
+            <AppPagination/>
           </Grid>
         </Grid>
       </ThemeProvider>

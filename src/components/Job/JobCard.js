@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Typography } from '@mui/material'
 import React from 'react'
 import theme from '../../theme/theme' 
-import { differenceInMinutes } from 'date-fns';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -40,6 +39,20 @@ const useStyles=makeStyles(() => ({
     }
 }));
 
+const query='java';
+const pageno='1';
+
+function geturl (query,pageno){
+  return(
+    // const baseurl=
+    'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/'+
+    // const SearchQuery=
+    "Search?SearchQuery="+query
+    // +
+    // const page=
+    // '&PageSize=10&PageNumber='+pageno
+  );
+}
 
 const JobCard = () => {
     const [myData, setmyData] = useState([]);
@@ -47,7 +60,8 @@ const JobCard = () => {
   
     useEffect(() => {
       const fetchData = async () => {
-        const url = 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=react&PageSize=10&PageNumber=2';
+
+        const url = geturl(query,pageno);
         const options = {
           method: 'GET',
           headers: {
@@ -118,6 +132,7 @@ const JobCard = () => {
         ) : (
           <p>No data available.</p> 
         )}
+
       </>
     );
   };

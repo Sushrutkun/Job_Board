@@ -30,12 +30,12 @@ function Searchbar()
                 <MenuItem value="Remote">Remote</MenuItem>
             </Select> */}
             {/* this will be search for job_type and job_company */}
-            <Select disableUnderline defaultValue="Full-Time">
+            <Select disableunderline="true" defaultValue="Full-Time">
                 <MenuItem value="Full-Time">Full-Time</MenuItem>
                 <MenuItem value="Part-Time">Part-Time</MenuItem>
                 <MenuItem value="Intern">Intern</MenuItem>
             </Select>
-            <Select disableUnderline defaultValue="In-Office">
+            <Select disableunderline="true" defaultValue="In-Office">
                 <MenuItem value="In-Office">In-Office</MenuItem>
                 <MenuItem value="Remote">Remote</MenuItem>
             </Select>

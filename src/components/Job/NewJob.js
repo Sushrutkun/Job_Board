@@ -61,12 +61,12 @@ const NewJob = ({showModal,setshowModal}) => {
         <DialogContent>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Job title *' disableUnderline fullWidth/>
+                    <FilledInput placeholder='Job title *' disableunderline fullWidth/>
                 </Grid>
                 <Grid item xs={6}>
                     <Select 
                         fullWidth
-                        disableUnderline
+                        disableunderline="true"
                         variant='filled'
                         defaultValue={"Full-time"}
                     >
@@ -76,15 +76,15 @@ const NewJob = ({showModal,setshowModal}) => {
                     </Select>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Company name *' disableUnderline fullWidth/>
+                    <FilledInput placeholder='Company name *' disableunderline="true" fullWidth/>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Company URL *' disableUnderline fullWidth/>
+                    <FilledInput placeholder='Company URL *' disableunderline="true" fullWidth/>
                 </Grid>
                 <Grid item xs={6}>
                     <Select 
                         fullWidth
-                        disableUnderline
+                        disableunderline="true"
                         variant='filled'
                         defaultValue={"Remote"}
                     >
@@ -93,12 +93,12 @@ const NewJob = ({showModal,setshowModal}) => {
                     </Select>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Job Link *' disableUnderline fullWidth/>
+                    <FilledInput placeholder='Job Link *' disableunderline="true" fullWidth/>
                 </Grid>
                 <Grid item xs={12}>
                     <FilledInput
                     placeholder='Job description *' 
-                    disableUnderline
+                    disableunderline="true"
                     fullWidth
                     multiline
                     rows={4}
