@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
 import React from 'react'
 import theme from '../../theme/theme' 
 import { useEffect } from 'react';
@@ -39,29 +39,37 @@ const useStyles=makeStyles(() => ({
     }
 }));
 
-const query='java';
-const pageno='1';
+// const query='java';
+// const pageno='1';
 
-function geturl (query,pageno){
-  return(
-    // const baseurl=
-    'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/'+
-    // const SearchQuery=
-    "Search?SearchQuery="+query
-    // +
-    // const page=
-    // '&PageSize=10&PageNumber='+pageno
-  );
-}
+// function geturl (query,pageno){
+//   return(
+//     // const baseurl=
+//     'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/'+
+//     // const SearchQuery=
+//     "Search?SearchQuery="+query
+//     // +
+//     // const page=
+//     // '&PageSize=10&PageNumber='+pageno
+//   );
+// }
+
+
+    // url for using API is => 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java' simple
+    // 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=1' with pagenum
 
 const JobCard = () => {
     const [myData, setmyData] = useState([]);
+    // const [myApi, setmyApi] = useState([]);
+    const [currPage ,setcurrPage] = useState(1);
+
     const classes = useStyles();
   
     useEffect(() => {
       const fetchData = async () => {
 
-        const url = geturl(query,pageno);
+        const url = `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=${currPage}`; 
+        // geturl(query,pageno);
         const options = {
           method: 'GET',
           headers: {
@@ -74,6 +82,7 @@ const JobCard = () => {
           const response = await fetch(url, options);
           const result = await response.json();
           console.log(result.data);
+          // setmyApi(result);
           setmyData(result.data);
         } catch (error) {
           console.error(error);
@@ -81,11 +90,15 @@ const JobCard = () => {
       };
   
       fetchData();
-    }, []);
-  
+    }, [currPage]);
+    
+    const handleChange = (event, value) => {
+      setcurrPage(value);
+      console.log(value);
+    };
 
     return (
-      <>
+    <>
       {myData.length > 0 ? (
         myData.map((post) => {
           const { id, title, url, company,dateAdded,tags} = post;
@@ -131,9 +144,23 @@ const JobCard = () => {
         })
         ) : (
           <p>No data available.</p> 
-        )}
+      )}
 
-      </>
+      
+      <Box justifyContent={"center"} alignContent="center" display={"flex"}
+        sx={{
+            margin: "20px 0px"
+        }}>
+        <Pagination
+          count={30} 
+          page={Number(currPage)}
+          onChange={handleChange}
+          // variant="outlined" 
+          size="large" color="primary"
+        />
+      </Box>
+
+    </>
     );
   };
   
