@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, ThemeProvider} from '@mui/material';
 // import theme from './theme/theme';
 import Header from './components/header';
-import Searchbar from './components/searchbar';
+// import Searchbar from './components/searchbar';
 import theme from './theme/theme' 
 import JobCard from './components/Job/JobCard';
 // import jobdata from './dummyData'
