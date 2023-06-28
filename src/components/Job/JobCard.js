@@ -5,6 +5,7 @@ import theme from '../../theme/theme'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Searchbar from '../searchbar';
+import './loading.css'
 
   
 
@@ -64,12 +65,13 @@ const JobCard = () => {
     // const [myApi, setmyApi] = useState([]);
     const [currPage ,setcurrPage] = useState(1);
     const [searchQuery,setSearchQuery] = useState('java');
+    const [loading, setLoading] = useState(false);
 
     const classes = useStyles();
   
     useEffect(() => {
       const fetchData = async () => {
-
+        setLoading(true) //set Loading as true when we are making api call
         const url = `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=${searchQuery}&PageSize=10&PageNumber=${currPage}`; 
         // geturl(query,pageno);
         const options = {
@@ -89,8 +91,10 @@ const JobCard = () => {
         } catch (error) {
           console.error(error);
         }
+        setLoading(false) // api call done
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       };
-  
+      
       fetchData();
     }, [currPage,searchQuery]);
     
@@ -101,12 +105,18 @@ const JobCard = () => {
 
     const handleSearch = (value) => {
       setSearchQuery(value);
+      setcurrPage(1);  
       console.log(value);
     };
 
     return (
     <>
     <Searchbar onSearch={handleSearch} />
+    {loading && (
+      <div className="container">
+        <div className="custom-div"></div>
+      </div>
+      )}
       {myData.length > 0 ? (
         myData.map((post) => {
           const { id, title, url, company,dateAdded,tags} = post;
