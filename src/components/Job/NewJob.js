@@ -15,7 +15,6 @@ const useStyles=makeStyles(() => ({
         fontWeight:600,
         border: `1px solid ${theme.palette.secondary.main}`,
         color:theme.palette.secondary.main,
-        cursor:"pointer",
          
         "&:hover":{
             backgroundColor:theme.palette.secondary.main,
