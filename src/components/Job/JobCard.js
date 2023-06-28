@@ -4,6 +4,7 @@ import React from 'react'
 import theme from '../../theme/theme' 
 import { useEffect } from 'react';
 import { useState } from 'react';
+import Searchbar from '../searchbar';
 
   
 
@@ -62,13 +63,14 @@ const JobCard = () => {
     const [myData, setmyData] = useState([]);
     // const [myApi, setmyApi] = useState([]);
     const [currPage ,setcurrPage] = useState(1);
+    const [searchQuery,setSearchQuery] = useState('java');
 
     const classes = useStyles();
   
     useEffect(() => {
       const fetchData = async () => {
 
-        const url = `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=${currPage}`; 
+        const url = `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=${searchQuery}&PageSize=10&PageNumber=${currPage}`; 
         // geturl(query,pageno);
         const options = {
           method: 'GET',
@@ -90,15 +92,21 @@ const JobCard = () => {
       };
   
       fetchData();
-    }, [currPage]);
+    }, [currPage,searchQuery]);
     
     const handleChange = (event, value) => {
       setcurrPage(value);
       console.log(value);
     };
 
+    const handleSearch = (value) => {
+      setSearchQuery(value);
+      console.log(value);
+    };
+
     return (
     <>
+    <Searchbar onSearch={handleSearch} />
       {myData.length > 0 ? (
         myData.map((post) => {
           const { id, title, url, company,dateAdded,tags} = post;

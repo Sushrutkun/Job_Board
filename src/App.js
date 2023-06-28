@@ -21,7 +21,7 @@ function App()
         <Grid container justifyContent={"center"}>
           <Grid item xs={10}>
 
-            <Searchbar/>
+            {/* <Searchbar/> */}
             {/* {jobdata.map(job => <JobCard key={job.id}{...job}/>)} */}
             <JobCard key ={"1"}/>
           </Grid>

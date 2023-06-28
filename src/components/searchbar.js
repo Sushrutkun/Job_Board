@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/styles";
-import { Box, Button, MenuItem, Select } from "@mui/material"
+import { Box, Button, MenuItem, Select, TextField } from "@mui/material"
+import { useState } from "react";
 
 
 const useStyles = makeStyles(() => ({
@@ -15,8 +16,17 @@ const useStyles = makeStyles(() => ({
       },
     },
   }));
-function Searchbar()
+function Searchbar({onSearch})
 {
+    const [inputData,setInputData]=useState('java');
+    const handleChange= (event) => {
+        setInputData(event.target.value)
+    }
+    const handleSearch = () => {
+        // Handle the form submission with the input value
+        // console.log('Input value:', inputData);
+        onSearch(inputData);
+      };
     const classes = useStyles();
     return(
         <Box p={3} mt={-4} mb={2} className={classes.wrapper}>
@@ -30,17 +40,15 @@ function Searchbar()
                 <MenuItem value="Remote">Remote</MenuItem>
             </Select> */}
             {/* this will be search for job_type and job_company */}
-            <Select disableunderline="true" defaultValue="Full-Time">
-                <MenuItem value="Full-Time">Full-Time</MenuItem>
-                <MenuItem value="Part-Time">Part-Time</MenuItem>
-                <MenuItem value="Intern">Intern</MenuItem>
-            </Select>
+            <TextField id="outlined-basic" label="Keyword" 
+            value={inputData}
+            onChange={handleChange}
+            variant="outlined" />
             <Select disableunderline="true" defaultValue="In-Office">
                 <MenuItem value="In-Office">In-Office</MenuItem>
-                <MenuItem value="Remote">Remote</MenuItem>
             </Select>
             <Box mt={1.5}>
-            <Button variant="contained" disableElevation>Search</Button>
+            <Button variant="contained" disableElevation onClick={handleSearch}>Search</Button>
             </Box>
         </Box>
     )
