@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import { Box, Button, MenuItem, Select, TextField } from "@mui/material"
+import { Box, Button,  MenuItem, Select, TextField } from "@mui/material"
 import { useState } from "react";
 
 
@@ -14,6 +14,9 @@ const useStyles = makeStyles(() => ({
         height: "45px",
         margin: "8px",
       },
+    },
+    textField: {
+      minWidth: "200px", // Adjust the minimum width as needed
     },
   }));
 function Searchbar({onSearch})
@@ -40,11 +43,18 @@ function Searchbar({onSearch})
                 <MenuItem value="Remote">Remote</MenuItem>
             </Select> */}
             {/* this will be search for job_type and job_company */}
-            <TextField id="outlined-basic" label="Keyword" 
-            value={inputData}
-            onChange={handleChange}
-            variant="outlined" />
-            <Select disableunderline="true" defaultValue="In-Office">
+            <Box mt={1.5}>
+              <TextField
+                id="outlined-basic"
+                label="Keyword"
+                value={inputData}
+                onChange={handleChange}
+                variant="outlined"
+                className={classes.textField}
+                fullWidth
+              />
+            </Box>
+            <Select disableunderline="true" defaultValue="">
                 <MenuItem value="In-Office">In-Office</MenuItem>
             </Select>
             <Box mt={1.5}>
