@@ -102,7 +102,7 @@ const JobCard = () => {
       setcurrPage(value);
       console.log(value);
     };
-
+    
     const handleSearch = (value) => {
       setSearchQuery(value);
       setcurrPage(1);  
@@ -128,6 +128,7 @@ const JobCard = () => {
                   <Grid item>
                     <Typography variant="subtitle1">{title}</Typography>
                   </Grid>
+
                   <Grid item>
                     <Typography className={classes.companyName} variant="subtitle2">
                       {company}
@@ -135,13 +136,14 @@ const JobCard = () => {
                   </Grid>
                 </Grid>
 
-                <Grid item container xs alignContent="center">
-                {tags.map((tag) => (
-                  <Grid key={tag.id} item>
-                    <Box className={classes.skillChip}>{tag.text}</Box>
-                  </Grid>
-                ))}
-              </Grid>
+                <Grid item container xs alignContent="center" ml={16}>
+                  {tags.map((tag) => (
+                    <Grid key={tag.id} item>
+                      <Box className={classes.skillChip}>{tag.text}</Box>
+                    </Grid>
+                  ))}
+                </Grid>
+
                 <Grid item container xs direction="column" alignItems="flex-end">
                   <Grid item>
                     <Typography variant="caption">
