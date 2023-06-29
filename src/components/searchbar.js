@@ -1,5 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
-import { Box, Button,  MenuItem, Select, TextField } from "@mui/material"
+import { Box, Button,  
+  // MenuItem, Select,
+   TextField } from "@mui/material"
 import { useState } from "react";
 
 
@@ -54,9 +56,9 @@ function Searchbar({onSearch})
                 fullWidth
               />
             </Box>
-            <Select disableunderline="true" defaultValue="">
+            {/* <Select disableunderline="true" defaultValue="">
                 <MenuItem value="In-Office">In-Office</MenuItem>
-            </Select>
+            </Select> */}
             <Box mt={1.5}>
             <Button variant="contained" disableElevation onClick={handleSearch}>Search</Button>
             </Box>
