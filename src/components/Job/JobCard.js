@@ -139,7 +139,7 @@ const JobCard = () => {
             <Grid item container xs alignContent="center" ml={16}>
               {tags.map((tag) => (
                   <Grid key={tag.id} item>
-                    <Box className={classes.skillChip}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1)}</Box>
+                    <Box className={classes.skillChip}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1).toLowerCase()}</Box>
                   </Grid>
               ))}
             </Grid>
