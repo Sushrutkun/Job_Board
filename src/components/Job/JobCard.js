@@ -111,62 +111,63 @@ const JobCard = () => {
 
     return (
     <>
-    <Searchbar onSearch={handleSearch} />
-    {loading && (
-      <div className="container">
-        <div className="custom-div"></div>
-      </div>
-      )}
+      <Searchbar onSearch={handleSearch} />
+      {loading && (
+        <div className="container">
+          <div className="custom-div"></div>
+        </div>
+        )}
       {myData.length > 0 ? (
         myData.map((post) => {
-          const { id, title, url, company,dateAdded,tags} = post;
-          
-          return (
-            <Box p={2} className={classes.wrapper} key={id}>
-              <Grid container alignContent="center">
-                <Grid item container xs direction="column">
-                  <Grid item>
-                    <Typography variant="subtitle1">{title}</Typography>
-                  </Grid>
-
-                  <Grid item>
-                    <Typography className={classes.companyName} variant="subtitle2">
-                      {company}
-                    </Typography>
-                  </Grid>
-                </Grid>
-
-                <Grid item container xs alignContent="center" ml={16}>
-                  {tags.map((tag) => (
-                    <Grid key={tag.id} item>
-                      <Box className={classes.skillChip}>{tag.text}</Box>
-                    </Grid>
-                  ))}
-                </Grid>
-
-                <Grid item container xs direction="column" alignItems="flex-end">
-                  <Grid item>
-                    <Typography variant="caption">
-                      {`${dateAdded.slice(0,10)}`} | Full time | Remote 
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Box mt={1}>
-                      <Button variant="outlined" href={url}>
-                        Apply Now
-                      </Button>
-                    </Box>
-                  </Grid>
-                </Grid>
+        const { id, title, url, company,dateAdded,tags} = post;
+            
+        return (
+        <Box p={2} className={classes.wrapper} key={id}>
+          <Grid container alignContent="center">
+            <Grid item container xs direction="column">
+              <Grid item>
+                <Typography variant="subtitle1">{title}</Typography>
               </Grid>
-            </Box>
-          );
-        })
-        ) : (
-          <p>No data available.</p> 
-      )}
 
-      
+              <Grid item>
+                <Typography className={classes.companyName} variant="subtitle2">
+                  {company}
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid item container xs alignContent="center" ml={16}>
+              {tags.map((tag) => (
+                  <Grid key={tag.id} item>
+                    <Box className={classes.skillChip}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1)}</Box>
+                  </Grid>
+              ))}
+            </Grid>
+
+            <Grid item container xs direction="column" alignItems="flex-end">
+              <Grid item>
+                <Typography variant="caption">
+                  {`${dateAdded.slice(0,10)}`} | Full time | Remote 
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Box mt={1}>
+                  <Button variant="outlined" href={url}>
+                    Apply Now
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+            
+          </Grid>
+        </Box>
+            );
+          })
+          ) : (
+            <p>No data available.</p> 
+        )}
+
+        
       <Box justifyContent={"center"} alignContent="center" display={"flex"}
         sx={{
             margin: "20px 0px"

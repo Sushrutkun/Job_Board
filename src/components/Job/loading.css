@@ -25,20 +25,22 @@
   background-color: hsla(185, 100%, 62%, 0.75);
   transform-origin: center bottom;
   transform: scaleY(1);
-  animation: fill 4s linear infinite;
+  animation: fill 1s linear infinite;
 }
 
 @keyframes spin {
-  50%,
+  /* 50%, */
   100% {
     transform: rotate(360deg);
   }
 }
 
 @keyframes fill {
-  25%,
-  50% {
+  0%{
     transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(0.5);
   }
   100% {
     transform: scaleY(1);
