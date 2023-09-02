@@ -45,15 +45,14 @@ const NewJob = ({showModal,setshowModal}) => {
 
     const classes=useStyles();
   return (
-    <Dialog open={true} fullWidth 
-    >
+    <Dialog open={true} fullWidth>
         <DialogTitle>
             <Box display={'flex'} justifyContent={"space-between"}alignItems={"center"}>
                 Post Job
                 <IconButton >
                     <CloseIcon onClick={()=>{
-              setshowModal(false);
-            }}/>
+                                    setshowModal(false);
+                                    }}/>
                 </IconButton>
             </Box>
         </DialogTitle>

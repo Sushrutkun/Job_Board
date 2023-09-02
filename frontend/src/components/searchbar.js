@@ -8,7 +8,7 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "#fff",
       display: "flex",
       boxShadow: "0px 1px 5px rgba(0,0,0,0.1)",
-      borderRadius: "5px",
+      borderRadius: "20px",
       '& > *': {
         flex: 1,
         height: "45px",

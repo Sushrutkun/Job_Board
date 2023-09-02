@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
 import React from 'react'
+import {BsBookmarkStar,BsBookmarkStarFill} from 'react-icons/bs'
 import theme from '../../theme/theme' 
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -14,7 +15,8 @@ const useStyles=makeStyles(() => ({
         border:'1px solid #c8c8c8',
         cursor:"pointer",
         transition:"0.3s",
-
+        boxShadow: "0px 1px 5px rgba(0,0,0,0.1)",
+        borderRadius: "5px",
         "&:hover":{
             boxShadow:"0px 5px 25px rgba(0,0,0,0.1)",
             borderLeft:"6px solid #000",
@@ -66,6 +68,8 @@ const JobCard = () => {
     const [currPage ,setcurrPage] = useState(1);
     const [searchQuery,setSearchQuery] = useState('java');
     const [loading, setLoading] = useState(false);
+    const [addtowish, setAddtowish] = useState(false);
+
 
     const classes = useStyles();
   
@@ -120,10 +124,9 @@ const JobCard = () => {
       {myData.length > 0 ? (
         myData.map((post) => {
         const { id, title, url, company,dateAdded,tags} = post;
-            
         return (
-        <Box p={2} className={classes.wrapper} key={id}>
-          <Grid container alignContent="center">
+        <Box p={5} className={classes.wrapper} key={id} m={1}>
+          <Grid container alignContent="center"  >
             <Grid item container xs direction="column">
               <Grid item>
                 <Typography variant="subtitle1">{title}</Typography>
@@ -151,7 +154,10 @@ const JobCard = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Box mt={1}>
+                <Box mt={1} display={"flex"} flexDirection={"row"}>
+                  <Typography pt={1} pr={1} fontSize={'27px'}>
+                  <BsBookmarkStar/>
+                  </Typography>
                   <Button variant="outlined" href={url}>
                     Apply Now
                   </Button>
@@ -176,7 +182,6 @@ const JobCard = () => {
           count={30} 
           page={Number(currPage)}
           onChange={handleChange}
-          // variant="outlined" 
           size="large" color="primary"
         />
       </Box>
