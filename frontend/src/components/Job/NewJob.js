@@ -1,8 +1,10 @@
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FilledInput, Grid, IconButton, MenuItem, Select, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import theme from "../../theme/theme"
 import CloseIcon from '@material-ui/icons/Close';
+import axios from 'axios';
+
 
 const useStyles=makeStyles(() => ({
     skillChip:{
@@ -16,7 +18,7 @@ const useStyles=makeStyles(() => ({
         border: `1px solid ${theme.palette.secondary.main}`,
         color:theme.palette.secondary.main,
          
-        "&:hover":{
+        "&.selected": {
             backgroundColor:theme.palette.secondary.main,
             color:"#fff",
         },
@@ -33,8 +35,32 @@ const NewJob = ({showModal,setshowModal}) => {
         "MongoDB",
         "SQL",
     ];
+    const [selectedSkills, setSelectedSkills] = useState([]);
+    const toggleSkill = (skill) => {
+        if (selectedSkills.includes(skill)) {
+          setSelectedSkills(selectedSkills.filter((s) => s !== skill));
+          // Remove the skill from formData.skills
+          setFormData({ ...formData, skills: formData.skills.filter((s) => s !== skill) });
+        } else {
+          setSelectedSkills([...selectedSkills, skill]);
+          // Add the skill to formData.skills
+          setFormData({ ...formData, skills: [...formData.skills, skill] });
+        }
+      };    
 
 
+    const handleSubmitForm = (formData) => {
+        axios.post('http://localhost:5000/api', formData)
+          .then((response) => {
+            // Handle success, e.g., show a success message
+            console.log('Data successfully sent:', response.data);
+          })
+          .catch((error) => {
+            // Handle error, e.g., show an error message
+            console.error('Error:', error);
+          });
+          console.log(formData)
+      };
     // const state =useState();
     // let [count,setCount]=useState("hidden");
     // console.log(count);
@@ -42,13 +68,44 @@ const NewJob = ({showModal,setshowModal}) => {
     // {
     //     setCount("visible");
     // };
+    const [formData, setFormData] = useState({
+        job_title: '',
+        company_commitment: '',
+        job_type: '',
+        company_name: '',
+        company_url: '',
+        company_joblink: '',
+        job_description: '',
+        skills: ''
+    });
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+      };
+
+    const handleSubmit = (e) => {
+        // e.preventDefault();
+        handleSubmitForm(formData);
+        console.log(formData)
+        setFormData({
+            job_title: '',
+            company_commitment: '',
+            job_type: '',
+            company_name: '',
+            company_url: '',
+            company_joblink: '',
+            job_description: '',
+            skills: ''
+          });
+          setSelectedSkills([]);
+    };
     const classes=useStyles();
   return (
-    <Dialog open={true} fullWidth>
+    <Dialog open={true} fullWidth onSubmit={handleSubmit}>
         <DialogTitle>
             <Box display={'flex'} justifyContent={"space-between"}alignItems={"center"}>
-                Post Job
+                Post Jobs
                 <IconButton >
                     <CloseIcon onClick={()=>{
                                     setshowModal(false);
@@ -56,10 +113,10 @@ const NewJob = ({showModal,setshowModal}) => {
                 </IconButton>
             </Box>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent >
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Job title *' disableunderline fullWidth/>
+                    <FilledInput placeholder='Job title *' name='job_title' disableunderline fullWidth value={formData.job_title} onChange={handleChange}/>
                 </Grid>
                 <Grid item xs={6}>
                     <Select 
@@ -67,6 +124,9 @@ const NewJob = ({showModal,setshowModal}) => {
                         disableunderline="true"
                         variant='filled'
                         defaultValue={"Full-time"}
+                        name='company_commitment'
+                        value={formData.company_commitment} 
+                        onChange={handleChange}
                     >
                     <MenuItem value="Full-time">Full-time</MenuItem>
                     <MenuItem value="Part-time">Part-time</MenuItem>
@@ -74,10 +134,10 @@ const NewJob = ({showModal,setshowModal}) => {
                     </Select>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Company name *' disableunderline="true" fullWidth/>
+                    <FilledInput placeholder='Company name *' disableunderline="true" name='company_name' fullWidth value={formData.company_name} onChange={handleChange}/>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Company URL *' disableunderline="true" fullWidth/>
+                    <FilledInput placeholder='Company URL *' disableunderline="true" name='company_url' fullWidth value={formData.company_url} onChange={handleChange}/>
                 </Grid>
                 <Grid item xs={6}>
                     <Select 
@@ -85,13 +145,16 @@ const NewJob = ({showModal,setshowModal}) => {
                         disableunderline="true"
                         variant='filled'
                         defaultValue={"Remote"}
+                        name='job_type'
+                        value={formData.job_type} 
+                        onChange={handleChange}
                     >
                     <MenuItem value="Remote">Remote</MenuItem>
                     <MenuItem value="In office">In office</MenuItem>
                     </Select>
                 </Grid>
                 <Grid item xs={6}>
-                    <FilledInput placeholder='Job Link *' disableunderline="true" fullWidth/>
+                    <FilledInput placeholder='Job Link *' disableunderline="true" fullWidth name='company_joblink' value={formData.company_joblink} onChange={handleChange}/>
                 </Grid>
                 <Grid item xs={12}>
                     <FilledInput
@@ -100,17 +163,26 @@ const NewJob = ({showModal,setshowModal}) => {
                     fullWidth
                     multiline
                     rows={4}
+                    name='job_description'
+                    value={formData.job_description} 
+                    onChange={handleChange}
                     />
                 </Grid>
             </Grid>
            <Box>
                 <Typography>Skills</Typography>
-                <Box display={"flex"}>
-                    {skill.map((skill)=>(
-                        <Box className={classes.skillChip} key={skill}>
+                <Box display={"flex"} name='skills' value={formData.skills} onChange={handleChange}>
+                    {skill.map((skill) => (
+                        <Box
+                            key={skill}
+                            className={`${classes.skillChip} ${
+                            selectedSkills.includes(skill) ? 'selected' : ''
+                            }`}
+                            onClick={() => toggleSkill(skill)}
+                        >
                             {skill}
                         </Box>
-                    ))}
+                        ))}
                 </Box>
            </Box>
         </DialogContent>
@@ -123,7 +195,9 @@ const NewJob = ({showModal,setshowModal}) => {
                 alignItems={'center'}
             >
                 <Typography>*Required fields</Typography>
-                <Button variant="contained" disableElevation color='primary'>Post job</Button>
+                <Button variant="contained" disableElevation color='primary' onClick={() => {
+                    handleSubmit()
+                    }}>Post job</Button>
             </Box>
         </DialogActions>
     </Dialog>
