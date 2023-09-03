@@ -7,7 +7,7 @@ export const getjobsbyid = asyncHandler(async (req,res)=>{
     res.status(200).json({message:`GET by id ${req.params.id} in this api`});
 });
 export const postjobs = asyncHandler(async (req,res)=>{
-    const {job_title,company_commitment,job_type,company_name,company_url,company_joblink,job_description,skills,} = req.body;
+    const {job_title,company_commitment,job_type,company_name,company_url,company_joblink,job_description,skills} = req.body;
     if (!job_title || !company_commitment || !job_type) {
         res.status(400);
         throw new Error("All fields are mandatory !");
