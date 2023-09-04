@@ -30,7 +30,7 @@ const jobSchema = mongoose.Schema({
         required:[true , "Please Add Job Title"]
     },
     skills:{
-        type:String, 
+        type:[String], 
         required:[true , "Please Add Job Title"]
     },
     

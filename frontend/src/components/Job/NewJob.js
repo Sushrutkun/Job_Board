@@ -50,8 +50,10 @@ const NewJob = ({showModal,setshowModal}) => {
 
 
     const handleSubmitForm = (formData) => {
+        console.log(formData)
         axios.post('http://localhost:5000/api', formData)
-          .then((response) => {
+        .then((response) => {
+              console.log(formData)
             // Handle success, e.g., show a success message
             console.log('Data successfully sent:', response.data);
           })
@@ -59,8 +61,7 @@ const NewJob = ({showModal,setshowModal}) => {
             // Handle error, e.g., show an error message
             console.error('Error:', error);
           });
-          console.log(formData)
-      };
+        };
     // const state =useState();
     // let [count,setCount]=useState("hidden");
     // console.log(count);
@@ -85,9 +86,8 @@ const NewJob = ({showModal,setshowModal}) => {
       };
 
     const handleSubmit = (e) => {
-        // e.preventDefault();
         handleSubmitForm(formData);
-        console.log(formData)
+        // console.log(formData)
         setFormData({
             job_title: '',
             company_commitment: '',

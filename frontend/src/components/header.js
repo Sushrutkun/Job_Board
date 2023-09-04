@@ -28,21 +28,24 @@ function Header()
 
 
   return (
-    <Box py={8} bgcolor={"secondary.main"} color={"white"} >
-      <IconButton onClick={handleClick}>
-        <Avatar alt="Remy Sharp" src="https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg" 
-          style={{marginLeft:"10px",marginBottom:"-55px",cursor:"pointer"}} sx={{ width: 90, height: 90 }} />
-      </IconButton>
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        style={{marginTop:"40px"}}
-      >
-        <MenuItem onClick={() => handleOptionClick("View Profile")}sx={{ fontSize: '16px' }}>View Profile</MenuItem>
-        <MenuItem onClick={() => handleOptionClick("Logout")}sx={{ fontSize: '16px' }}>Logout</MenuItem>
-      </Menu>
+    <Box py={8} bgcolor={"secondary.main"} color={"white"} display={"flex"} flexDirection={"column"} >
+      <div style={{display:"flex", flexDirection:"column" ,alignItems:"end",marginRight:"100px",marginBottom:"20px",marginTop:"-40px"}}>
+        <IconButton onClick={handleClick} >
+          <Avatar alt="Remy Sharp" src="https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg" 
+            style={{cursor:"pointer"}} sx={{ width: 40, height: 40 }} />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          style={{marginTop:"0px"}}
+          >
+          <MenuItem onClick={() => handleOptionClick("View Profile")}sx={{ fontSize: '16px' }}>View Profile</MenuItem>
+          <MenuItem onClick={() => handleOptionClick("Logout")}sx={{ fontSize: '16px' }}>Logout</MenuItem>
+        </Menu>
+      </div>
       <Grid container justifyContent="center" >
+        
         <Grid item xs={10}>
           <Box display={"flex"} justifyContent={"space-between"}>
             <Box>
