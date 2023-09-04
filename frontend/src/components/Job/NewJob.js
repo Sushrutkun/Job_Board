@@ -71,8 +71,8 @@ const NewJob = ({showModal,setshowModal}) => {
     // };
     const [formData, setFormData] = useState({
         job_title: '',
-        company_commitment: '',
-        job_type: '',
+        company_commitment: 'Full-time',
+        job_type: 'Remote',
         company_name: '',
         company_url: '',
         company_joblink: '',
@@ -90,8 +90,8 @@ const NewJob = ({showModal,setshowModal}) => {
         // console.log(formData)
         setFormData({
             job_title: '',
-            company_commitment: '',
-            job_type: '',
+            company_commitment: 'Full-time',
+            job_type: 'Remote',
             company_name: '',
             company_url: '',
             company_joblink: '',
