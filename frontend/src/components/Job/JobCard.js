@@ -72,8 +72,13 @@ const JobCard = () => {
 
 
     const classes = useStyles();
-    const handleToggleWish = () => {
-      setAddtowish((prev) => !prev);
+    const handleToggleWish = (e) => {
+      console.log(e);
+      // setAddtowish((prev) => !prev);
+      e.target.innerHTML = "HI";
+      // e.target = "<BsBookmarkStarFill/>";
+      // e.target.style.color = "blue";
+
     };
     useEffect(() => {
       const fetchData = async () => {
@@ -157,13 +162,15 @@ const JobCard = () => {
               </Grid>
               <Grid item>
                 <Box mt={1} display={"flex"} flexDirection={"row"}>
-                  <Typography pt={1} pr={1} fontSize={'27px'} style={{cursor:"pointer"}} onClick={()=>{
-                    console.log("kuch bhi ..")
-                    handleToggleWish()
-                    }}>
-                      {addtowish? <BsBookmarkStarFill/>:<BsBookmarkStar/>}
+                  <Typography pt={1} pr={1} fontSize={'27px'} style={{cursor:"pointer"}} 
+                  onClick={handleToggleWish
+                    // console.log("kuch bhi ..")
+                    
+                  }>
+                      {/* {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>} */}
+                      <BsBookmarkStarFill/>
                   </Typography>
-                  <Button variant="outlined" href={url}>
+                  <Button variant="outlined" target='blank' href={url}>
                     Apply Now
                   </Button>
                 </Box>

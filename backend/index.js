@@ -16,10 +16,12 @@ app.use(express.json());
 app.use(cors());
 
 //api route
-app.use('/api',router);
+// app.use('/login',router);
+// app.use('/signup',router);
+app.use('/api', router);
 app.use(errorHandler);
 
-app.listen(port , ()=>{
+app.listen(port, () => {
     console.log("http://localhost:5000/");
     console.log(`Listening on PORT ${port}`);
 });

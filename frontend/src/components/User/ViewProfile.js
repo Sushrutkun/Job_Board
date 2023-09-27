@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FilledInput, Grid, IconButton, MenuItem, Select, Typography } from '@mui/material'
+import { Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, FilledInput, Grid, IconButton, MenuItem, Select, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import theme from "../../theme/theme"
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
-
 
 const useStyles = makeStyles(() => ({
     skillChip: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const NewJob = ({ showModal, setshowModal }) => {
+const ViewProfile = ({ setShowProfile }) => {
     const skill = [
         "Javascript",
         "React",
@@ -48,7 +47,6 @@ const NewJob = ({ showModal, setshowModal }) => {
         }
     };
 
-
     const handleSubmitForm = (formData) => {
         console.log(formData)
         axios.post('http://localhost:5000/api', formData)
@@ -62,13 +60,7 @@ const NewJob = ({ showModal, setshowModal }) => {
                 console.error('Error:', error);
             });
     };
-    // const state =useState();
-    // let [count,setCount]=useState("hidden");
-    // console.log(count);
-    // const showModal =()=>
-    // {
-    //     setCount("visible");
-    // };
+
     const [formData, setFormData] = useState({
         job_title: '',
         company_commitment: 'Full-time',
@@ -101,19 +93,65 @@ const NewJob = ({ showModal, setshowModal }) => {
         setSelectedSkills([]);
     };
     const classes = useStyles();
+    const username = localStorage.getItem("username");
+    // console.log(username);
+    const email = localStorage.getItem("email");
+    // console.log(email);
+    const password = localStorage.getItem("password");
+    // console.log(password);
+
+
     return (
         <Dialog open={true} fullWidth onSubmit={handleSubmit}>
-            <DialogTitle>
-                <Box display={'flex'} justifyContent={"space-between"} alignItems={"center"}>
-                    Post Jobs
-                    <IconButton >
-                        <CloseIcon onClick={() => {
-                            setshowModal(false);
-                        }} />
-                    </IconButton>
+            <DialogTitle >
+                <Box display={'flex'} justifyContent={'space-between'}>
+                    <Box>
+                        Your Profile
+                    </Box>
+                    <Box>
+                        <IconButton>
+                            <CloseIcon onClick={() => {
+                                setShowProfile(false);
+                            }} />
+                        </IconButton>
+                    </Box>
                 </Box>
             </DialogTitle>
-            <DialogContent >
+            <DialogContent>
+                <Container>
+                    <Typography>
+                        Your Profile
+                    </Typography>
+                    <IconButton
+                        className="imgcontainer"
+                        style={{ marginBottom: '50px' }}
+                    // width='90px'
+                    // height='90px'
+                    >
+                        <Avatar
+                            src="https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg"
+                            alt="Avatar"
+                            className="avatar"
+                            sx={{
+                                width: '90px', // Set the avatar width
+                                height: '90px', // Set the avatar height
+                            }}
+                        />
+                    </IconButton>
+                </Container>
+                <Container>
+                    <Typography>
+                        Username : {username}
+                    </Typography>
+                    <Typography>
+                        Email : {email}
+                    </Typography>
+                    <Typography>
+                        Password : {password}
+                    </Typography>
+                </Container>
+            </DialogContent>
+            {/* <DialogContent >
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <FilledInput placeholder='Job title *' name='job_title' disableunderline fullWidth value={formData.job_title} onChange={handleChange} />
@@ -184,8 +222,8 @@ const NewJob = ({ showModal, setshowModal }) => {
                         ))}
                     </Box>
                 </Box>
-            </DialogContent>
-            <DialogActions>
+            </DialogContent> */}
+            {/* <DialogActions>
                 <Box
                     color={"red"}
                     width={"100%"}
@@ -198,9 +236,9 @@ const NewJob = ({ showModal, setshowModal }) => {
                         handleSubmit()
                     }}>Post job</Button>
                 </Box>
-            </DialogActions>
+            </DialogActions> */}
         </Dialog>
     )
 }
 
-export default NewJob
+export default ViewProfile
