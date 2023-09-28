@@ -97,7 +97,7 @@ const ViewProfile = ({ setShowProfile }) => {
     // console.log(username);
     const email = localStorage.getItem("email");
     // console.log(email);
-    const password = localStorage.getItem("password");
+    const password = localStorage.getItem("token");
     // console.log(password);
 
 

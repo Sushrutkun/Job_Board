@@ -23,25 +23,27 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //   try {
-    //     // const RQ_URL=(URL+"/api/v1/users/login");
-    //     const { data } = await axios.post(
-    //       `${BASE_URL}login`,
-    //       {
-    //         username,
-    //         password
-    //       },
-    //     )
-    //     console.log(data);
-    //     localStorage.setItem("token", data.token)
-    //     localStorage.setItem("username", data.username)
-    //     localStorage.setItem("email", data.email)
-    //     navigate("/")
-    //   } 
-    //   catch (err) {
-    //     console.log(err);
-    //     alert("Username or Password is Incorrect")
-    //   }
+    try {
+      //     // const RQ_URL=(URL+"/api/v1/users/login");
+      const { data } = await axios.post(
+        `http://localhost:5000/signin`,
+        {
+          username,
+          password
+        },
+      );
+      console.log(data);
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("username", data.username)
+      localStorage.setItem("email", data.email)
+      // console.log(username);
+      // console.log(password);
+      navigate('/');
+    }
+    catch (err) {
+      console.log(err);
+      alert("Username or Password is Incorrect")
+    }
     // const name = e.target.elements.username;
     // const password = e.target.elements.password;
     // console.log(name);
@@ -50,9 +52,7 @@ function LoginPage() {
     // console.log(e.target.password);
     // e.target.reset();
 
-    console.log(username);
-    console.log(password);
-    navigate('/');
+
   };
 
 
@@ -71,7 +71,7 @@ function LoginPage() {
       }} >
       <form onSubmit={handleSubmit}
         style={{
-          maxHeight: '55vh', // Limit the height of the form
+          maxHeight: '67vh', // Limit the height of the form
           padding: '20px',
           background: 'rgba(255, 255, 255, 0.9)',
           borderRadius: '10px',
@@ -80,6 +80,8 @@ function LoginPage() {
           flexDirection: 'column',
           alignItems: 'center',
           width: '400px',
+          paddingTop: '50px',
+          paddingBottom: '10px',
         }}>
         {/* <Box className="signup-box" > */}
         <h1 className="signup" style={{

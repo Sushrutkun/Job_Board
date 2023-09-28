@@ -62,7 +62,11 @@ function Header() {
           <MenuItem onClick={() => handleViewProfile("View Profile")} sx={{ fontSize: '16px' }}>View Profile</MenuItem>
           <MenuItem onClick={() => handleSavedJobs("Saved Jobs")} sx={{ fontSize: '16px' }}>Saved Jobs</MenuItem>
           <MenuItem onClick={() => handleAppliedJobs("Applied Jobs")} sx={{ fontSize: '16px' }}>Applied Jobs</MenuItem>
-          <MenuItem onClick={() => navigate('/login')} sx={{ fontSize: '16px' }}>Logout</MenuItem>
+          <MenuItem onClick={() => 
+          {
+            localStorage.clear();
+            navigate('/login');
+          }} sx={{ fontSize: '16px' }}>Logout</MenuItem>
         </Menu>
         {showProfile ?
           <ViewProfile setShowProfile={setShowProfile} /> : null}

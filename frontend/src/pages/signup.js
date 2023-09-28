@@ -26,35 +26,36 @@ function SignupPage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // try {
-        //   const { data } = await axios.post(
-        //     `${BASE_URL}users`,
-        //     {
-        //       username,
-        //       email,
-        //       password
-        //     },
-        //   )
-        //   console.log(data);
-        //   localStorage.setItem("token", data.token)
-        //   localStorage.setItem("username", data.username)
-        //   localStorage.setItem("email", data.email)
-        //   localStorage.setItem("password", password);
-        //   navigate("/")
-        // } 
-        // catch (err) {
-        //   console.log(err);
-        //   alert("Error Occured Change email id")
-        // }
-        console.log(username);
-        console.log(email);
-        console.log(password);
-        localStorage.setItem('username', username);
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
+        try {
+            const { data } = await axios.post(
+                `http://localhost:5000/signup`,
+                {
+                    username,
+                    email,
+                    password
+                },
+            )
+            console.log(data);
+            localStorage.setItem("token", data.token)
+            localStorage.setItem("username", data.username)
+            localStorage.setItem("email", data.email)
+            //   localStorage.setItem("password", password);
+            //   navigate("/")
+            // } 
+            // console.log(username);
+            // console.log(email);
+            // console.log(password);
+            // localStorage.setItem('username', username);
+            // localStorage.setItem('email', email);
+            // localStorage.setItem('password', password);
 
-        event.target.reset();
-        navigate('/');
+            event.target.reset();
+            navigate('/');
+        }
+        catch (err) {
+            console.log(err);
+            alert("Error Occured Change email id or username")
+        }
     };
     return (
         <Box
@@ -72,7 +73,7 @@ function SignupPage() {
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    maxHeight: '70vh', // Limit the height of the form
+                    maxHeight: '80vh', // Limit the height of the form
                     padding: '20px',
                     background: 'rgba(255, 255, 255, 0.9)',
                     borderRadius: '10px',
@@ -81,7 +82,8 @@ function SignupPage() {
                     flexDirection: 'column',
                     alignItems: 'center',
                     width: '400px',
-                    // height:'00px',
+                    paddingTop: '20px',
+                    // paddingBottom: '50px',
                 }}
             >
                 <h1
@@ -161,7 +163,7 @@ function SignupPage() {
                             width: '100%',
                             fontSize: '20px',
                             padding: '10px',
-                            marginTop: '10px', // Add some spacing between buttons
+                            // marginTop: '10px', // Add some spacing between buttons
                         }}
                     >
                         Sign Up

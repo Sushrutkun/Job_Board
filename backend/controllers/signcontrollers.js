@@ -1,13 +1,46 @@
-// import asyncHandler from "express-async-handler";
-// import job from "../models/jobModels.js"
+import asyncHandler from "express-async-handler";
+import signup from "../models/signModel.js"
 
-export const postsignup = (async (req,res)=>{
-    // const jobs = await job.find();
-    res.status(200).json("postsignup");
+export const postsignup = asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+        res.status(400);
+        throw new Error("All fields are mandatory !");
+    }
+    const repeatemail=await signup.findOne({ "email": email });
+    const repeatusername=await signup.findOne({ "username": username });
+    if (repeatemail) {
+        res.status(400);
+        throw new Error("Change Your Email!");
+    }
+    else if (repeatusername) {
+        res.status(400);
+        throw new Error("Change Your username!");
+    }
+    else {
+        const data = await signup.create({
+            username,
+            email,
+            password
+        });
+        console.log(data);
+        res.status(200).json(data);
+    }
 });
-export const getsignupdata = (async (req,res)=>{
-    // const jobs = await job.find();
-    res.status(200).json("getsignupdata");
+export const getlogindata = asyncHandler(async (req, res) => {
+    const {username, password } = req.body;
+    const user = await signup.findOne({"username":username,"password":password});
+    if(user)
+    {
+        console.log(user);
+        res.status(200).json(user);
+    }
+    else
+    {
+        res.status(400);
+        throw new Error("Wrong Username or Password");
+    }
+    
 });
 // export const getjobsbyid = asyncHandler(async (req,res)=>{
 //     const jobs = await job.findById(req.params.id);
