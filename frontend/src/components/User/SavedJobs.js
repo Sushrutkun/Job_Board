@@ -2,13 +2,17 @@ import React from 'react'
 import Header from '../header'
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
-import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
+import {BsBookmarkStarFill } from 'react-icons/bs'
+import { AiOutlineDelete } from 'react-icons/ai'
 import theme from '../../theme/theme'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import Searchbar from '../searchbar';
 import '../Job/loading.css'
 import axois from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 
 const useStyles = makeStyles(() => ({
@@ -51,32 +55,42 @@ const SavedJobs = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
+  const classes = useStyles();
+
   const convertToUppercase = (str) => {
     if (typeof str === 'undefined') return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-
-  const classes = useStyles();
-  const handleToggleWish = (e) => {
-    console.log(e);
-    // setAddtowish((prev) => !prev);
-    e.target.innerHTML = "HI";
-    // e.target = "<BsBookmarkStarFill/>";
-    // e.target.style.color = "blue";
-
-  };
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true) //set Loading as true when we are making api call
+  const fetchData = async () => {
+    setLoading(true) //set Loading as true when we are making api call
+    try {
       const url = `http://localhost:5000/saved`
       const { data } = await axois.get(url);
       console.log(data);
       setmyData(data);
-      setLoading(false) // api call done
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    }
+    catch (err) {
+      console.log(err);
+    }
+    setLoading(false) // api call done
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
+  const deleteIt = async (_id) => {
+    try {
+      const url = `http://localhost:5000/saved`;
+      console.log(_id);
+      const data = await axios.delete(url, { data: { _id } });
+      fetchData();
+      console.log(data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -104,9 +118,9 @@ const SavedJobs = () => {
             )}
             {myData && myData.length > 0 ? (
               myData.map((post) => {
-                const { id, title, url, company, dateAdded, tags } = post;
+                const { _id, title, url, company, dateAdded, tags } = post;
                 return (
-                  <Box p={5} className={classes.wrapper} key={id} m={1} borderRadius={'25px'}>
+                  <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}>
                     <Grid container alignContent="center"  >
                       <Grid item container xs direction="column">
                         <Grid item>
@@ -136,16 +150,11 @@ const SavedJobs = () => {
                         </Grid>
                         <Grid item>
                           <Box mt={1} display={"flex"} flexDirection={"row"}>
-                            <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
-                              onClick={handleToggleWish
-                                // console.log("kuch bhi ..")
-
-                              }>
-                              {/* {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>} */}
+                            <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}>
                               <BsBookmarkStarFill />
                             </Typography>
-                            <Button variant="outlined" target='blank' href={url}>
-                              Apply Now
+                            <Button variant="outlined" onClick={() => deleteIt(_id)}>
+                              <AiOutlineDelete />
                             </Button>
                           </Box>
                         </Grid>

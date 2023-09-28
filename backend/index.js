@@ -5,7 +5,7 @@ import errorHandler from './middleware/errorHandler.js'
 import dbconnect from './config/dbConnections.js'
 import cors from 'cors'
 import { getlogindata, postsignup } from './controllers/signcontrollers.js';
-import { addToWishlist, getWishlist } from './controllers/savedControllers.js';
+import { addToWishlist, deleteWishlist, getWishlist } from './controllers/savedControllers.js';
 import { addToApplied, deleteApplied, getApplied } from './controllers/appliedControllers.js';
 
 dotenv.config();
@@ -27,7 +27,7 @@ app.use('/api', router);
 
 app.get('/saved',getWishlist);
 app.post('/saved',addToWishlist);
-// app.post('/saved/:id',addToWishlist);
+app.delete('/saved',deleteWishlist);
 
 
 app.post('/applied',addToApplied);

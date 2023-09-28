@@ -49,3 +49,13 @@ export const getWishlist = asyncHandler(async (req, res) =>
         console.log(err);
     }
 });
+export const deleteWishlist = asyncHandler(async (req, res) => {
+    const { _id } = req.body;
+    try {
+        const savedJobs = await saved.findByIdAndDelete(_id);
+        res.json(savedJobs);
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
