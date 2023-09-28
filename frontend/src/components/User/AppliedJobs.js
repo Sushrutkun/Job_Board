@@ -9,7 +9,6 @@ import { useState } from 'react';
 import Searchbar from '../searchbar';
 import '../Job/loading.css'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -51,42 +50,45 @@ const AppliedJobs = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
-  const navigate = useNavigate();
-
   const convertToUppercase = (str) => {
     if (typeof str === 'undefined') return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-
   const classes = useStyles();
-  const deleteIt = async (_id) => {
-    const url = `http://localhost:5000/applied`;
-    console.log(_id);
-    const data = await axios.delete(url, { data: { _id } });
-    console.log(data);
-    navigate('/applied');
-};
-
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true) //set Loading as true when we are making api call
+  const fetchData = async () => {
+    setLoading(true) //set Loading as true when we are making api call
+    try{
       const url = `http://localhost:5000/applied`
-
       const { data } = await axios.get(url);
       console.log(data);
       setmyData(data);
-      setLoading(false) // api call done
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+    }
+    catch(err){
+      console.log(err);
+    }
+    setLoading(false) // api call done
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  
+  const deleteIt = async (_id) => {
+    try{
+      const url = `http://localhost:5000/applied`
+      const data = await axios.delete(url, { data: { _id } });
+      fetchData();
+      console.log(data);
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
   const handleChange = (event, value) => {
     setcurrPage(value);
-    // console.log(value);
   };
 
   const handleSearch = (value) => {
@@ -111,7 +113,7 @@ const AppliedJobs = () => {
                 const { _id, title, url, company, dateAdded, tags } = post;
                 // console.log(post);
                 return (
-                  <Box p={5} className={classes.wrapper}  m={1} borderRadius={'25px'}>
+                  <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}>
                     <Grid container alignContent="center"  >
                       <Grid item container xs direction="column">
                         <Grid item>
