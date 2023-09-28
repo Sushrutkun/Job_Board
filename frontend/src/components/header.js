@@ -27,13 +27,18 @@ function Header() {
     handleClose();
   };
 
+  const handleHome = (event) => {
+    // Handle the click action based on the selected option.
+    // You can perform state updates or other actions here.
+    console.log(`${event}`);
+    navigate('/');
+  };
+
   const handleSavedJobs = (event) => {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     navigate('/saved');
-    setShowProfile(true);
-    handleClose();
   };
 
   const handleAppliedJobs = (event) => {
@@ -41,7 +46,6 @@ function Header() {
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     navigate('/applied');
-    setShowProfile(true);
     handleClose();
   };
 
@@ -59,11 +63,11 @@ function Header() {
           onClose={handleClose}
           style={{ marginTop: "0px" }}
         >
+          <MenuItem onClick={() => handleHome("Home")} sx={{ fontSize: '16px' }}>Home</MenuItem>
           <MenuItem onClick={() => handleViewProfile("View Profile")} sx={{ fontSize: '16px' }}>View Profile</MenuItem>
           <MenuItem onClick={() => handleSavedJobs("Saved Jobs")} sx={{ fontSize: '16px' }}>Saved Jobs</MenuItem>
           <MenuItem onClick={() => handleAppliedJobs("Applied Jobs")} sx={{ fontSize: '16px' }}>Applied Jobs</MenuItem>
-          <MenuItem onClick={() => 
-          {
+          <MenuItem onClick={() => {
             localStorage.clear();
             navigate('/login');
           }} sx={{ fontSize: '16px' }}>Logout</MenuItem>
