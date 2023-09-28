@@ -6,7 +6,7 @@ import dbconnect from './config/dbConnections.js'
 import cors from 'cors'
 import { getlogindata, postsignup } from './controllers/signcontrollers.js';
 import { addToWishlist, getWishlist } from './controllers/savedControllers.js';
-import { addToApplied } from './controllers/appliedControllers.js';
+import { addToApplied, deleteApplied, getApplied } from './controllers/appliedControllers.js';
 
 dotenv.config();
 
@@ -31,6 +31,9 @@ app.post('/saved',addToWishlist);
 
 
 app.post('/applied',addToApplied);
+app.get('/applied',getApplied);
+app.delete('/applied',deleteApplied);
+
 app.use(errorHandler);
 
 app.listen(port, () => {

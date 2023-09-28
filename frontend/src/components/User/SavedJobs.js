@@ -51,9 +51,8 @@ const SavedJobs = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
-  const convertToUppercase = (str) => 
-  {
-    if(typeof str === 'undefined') return str;
+  const convertToUppercase = (str) => {
+    if (typeof str === 'undefined') return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
@@ -70,35 +69,10 @@ const SavedJobs = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true) //set Loading as true when we are making api call
-      const url=`http://localhost:5000/saved` 
-
-      const {data} = await axois.get(url);
+      const url = `http://localhost:5000/saved`
+      const { data } = await axois.get(url);
       console.log(data);
       setmyData(data);
-      // setLoading(true) //set Loading as true when we are making api call
-      // // const url = `https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=${searchQuery}&PageSize=10&PageNumber=${currPage}`;
-      // const url =`http://localhost:5000/saved`
-      // // geturl(query,pageno);
-      // const options = {
-      //   method: 'GET',
-      //   headers: {
-      //     ContentType : 'application/json',
-      //     // Content-Type : 'application/json',
-      //     Accept: 'application/json',
-      //   }
-      // };
-
-
-      // try {
-      //   const response = await fetch(url,options);
-      //   console.log(response);
-      //   const result = await response.json();
-      //   console.log(result.data);
-      //   // setmyApi(result);
-      //   setmyData(result.data);
-      // } catch (error) {
-      //   console.error(error);
-      // }
       setLoading(false) // api call done
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
@@ -121,84 +95,84 @@ const SavedJobs = () => {
       <Header />
       <Grid container justifyContent={"center"}>
         <Grid item xs={10}>
-        <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-      {/* <Searchbar onSearch={handleSearch} /> */}
-      {loading && (
-        <div className="container">
-          <div className="custom-div"></div>
-        </div>
-      )}
-      {myData && myData.length > 0 ? (
-        myData.map((post) => {
-          const { id, title, url, company, dateAdded, tags } = post;
-          return (
-            <Box p={5} className={classes.wrapper} key={id} m={1} borderRadius={'25px'}>
-              <Grid container alignContent="center"  >
-                <Grid item container xs direction="column">
-                  <Grid item>
-                    <Typography variant="subtitle1" fontSize={"21px"}>{title}</Typography>
-                  </Grid>
+          <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+            {/* <Searchbar onSearch={handleSearch} /> */}
+            {loading && (
+              <div className="container">
+                <div className="custom-div"></div>
+              </div>
+            )}
+            {myData && myData.length > 0 ? (
+              myData.map((post) => {
+                const { id, title, url, company, dateAdded, tags } = post;
+                return (
+                  <Box p={5} className={classes.wrapper} key={id} m={1} borderRadius={'25px'}>
+                    <Grid container alignContent="center"  >
+                      <Grid item container xs direction="column">
+                        <Grid item>
+                          <Typography variant="subtitle1" fontSize={"21px"}>{title}</Typography>
+                        </Grid>
 
-                  <Grid item>
-                    <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
-                      {company}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item container xs alignContent="center" ml={16}>
-                  {console.log(tags)}
-                  {tags.map((tag) => (
-                    <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
-                      <Box className={classes.skillChip} pl={"10px"} pr={"10px"}>{convertToUppercase(tag.text)}</Box>
+                        <Grid item>
+                          <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
+                            {company}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item container xs alignContent="center" ml={16}>
+                        {console.log(tags)}
+                        {tags.map((tag) => (
+                          <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
+                            <Box className={classes.skillChip} pl={"10px"} pr={"10px"}>{convertToUppercase(tag.text)}</Box>
+                          </Grid>
+                        ))}
+                      </Grid>
+
+                      <Grid item container xs direction="column" alignItems="flex-end">
+                        <Grid item>
+                          <Typography variant="caption">
+                            {`${dateAdded.slice(0, 10)}`} | Full time | Remote
+                          </Typography>
+                        </Grid>
+                        <Grid item>
+                          <Box mt={1} display={"flex"} flexDirection={"row"}>
+                            <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
+                              onClick={handleToggleWish
+                                // console.log("kuch bhi ..")
+
+                              }>
+                              {/* {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>} */}
+                              <BsBookmarkStarFill />
+                            </Typography>
+                            <Button variant="outlined" target='blank' href={url}>
+                              Apply Now
+                            </Button>
+                          </Box>
+                        </Grid>
+                      </Grid>
+
                     </Grid>
-                  ))}
-                </Grid>
+                  </Box>
+                );
+              })
+            ) : (
+              <p>No data available.</p>
+            )}
 
-                <Grid item container xs direction="column" alignItems="flex-end">
-                  <Grid item>
-                    <Typography variant="caption">
-                      {`${dateAdded.slice(0, 10)}`} | Full time | Remote
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Box mt={1} display={"flex"} flexDirection={"row"}>
-                      <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
-                        onClick={handleToggleWish
-                          // console.log("kuch bhi ..")
 
-                        }>
-                        {/* {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>} */}
-                        <BsBookmarkStarFill />
-                      </Typography>
-                      <Button variant="outlined" target='blank' href={url}>
-                        Apply Now
-                      </Button>
-                    </Box>
-                  </Grid>
-                </Grid>
-
-              </Grid>
+            <Box justifyContent={"center"} alignContent="center" display={"flex"}
+              sx={{
+                margin: "20px 0px"
+              }}>
+              <Pagination
+                count={30}
+                page={Number(currPage)}
+                onChange={handleChange}
+                size="large" color="primary"
+              />
             </Box>
-          );
-        })
-      ) : (
-        <p>No data available.</p>
-      )}
 
-
-      <Box justifyContent={"center"} alignContent="center" display={"flex"}
-        sx={{
-          margin: "20px 0px"
-        }}>
-        <Pagination
-          count={30}
-          page={Number(currPage)}
-          onChange={handleChange}
-          size="large" color="primary"
-        />
-      </Box>
-
-    </div>
+          </div>
         </Grid>
       </Grid>
     </div>

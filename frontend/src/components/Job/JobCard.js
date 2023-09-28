@@ -127,6 +127,28 @@ const JobCard = () => {
     }
   };
 
+  const handleToggleApplied = async (title,url,company,dateAdded,tags) => {
+    try {
+      const { data } = await axios.post(`http://localhost:5000/applied`,
+        {
+          title,
+          url,
+          company,
+          dateAdded,
+          tags
+        }
+      )
+      // console.log(data.title);
+      // setAddtowish(await data.icon);
+      // console.log(addtowish);
+      console.log(data);
+    }
+    catch (err) {
+      console.log(title,url,company,dateAdded,tags);
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true) //set Loading as true when we are making api call
@@ -227,7 +249,18 @@ const JobCard = () => {
                         {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>}
                       </Typography>
                       
-                      <Button variant="outlined" target='blank' href={url}>
+                      <Button variant="outlined" target='blank' href={url} onClick={
+                        ()=>{
+                          handleToggleApplied
+                          (
+                            title,
+                            url,
+                            company,
+                            dateAdded,
+                            tags
+                          )
+                      }
+                    }>
                         Apply Now
                       </Button>
                     </Box>
