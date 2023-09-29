@@ -11,6 +11,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
   const handleusernameChange = (e) => {
@@ -26,7 +27,7 @@ function LoginPage() {
     try {
       //     // const RQ_URL=(URL+"/api/v1/users/login");
       const { data } = await axios.post(
-        `http://localhost:5000/signin`,
+        `${BASE_URL}signin`,
         {
           username,
           password

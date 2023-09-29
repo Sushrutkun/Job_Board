@@ -16,26 +16,26 @@ const Bookmark = ({ icon, handleToggleWish, post }) => {
 
 
     const changeIcon = () => {
-       icon = !icon;
+        icon = !icon;
     }
 
 
 
-    
+
     return (
         <div>
             <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
-            
-                onclick={()=>{
+
+                onclick={() => {
                     handleToggleWish
-                    (
-                        title,
-                        url,
-                        company,
-                        dateAdded,
-                        tags
-                    )
-                
+                        (
+                            title,
+                            url,
+                            company,
+                            dateAdded,
+                            tags
+                        )
+
                 }}
             >{
                     switchIcon(icon)}

@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../header'
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
-import {BsBookmarkStarFill } from 'react-icons/bs'
+import { BsBookmarkStarFill } from 'react-icons/bs'
 import { AiOutlineDelete } from 'react-icons/ai'
 import theme from '../../theme/theme'
 import { useEffect } from 'react';
@@ -55,6 +55,7 @@ const SavedJobs = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const classes = useStyles();
 
   const convertToUppercase = (str) => {
@@ -65,7 +66,7 @@ const SavedJobs = () => {
   const fetchData = async () => {
     setLoading(true) //set Loading as true when we are making api call
     try {
-      const url = `http://localhost:5000/saved`
+      const url = `${BASE_URL}saved`
       const { data } = await axois.get(url);
       console.log(data);
       setmyData(data);
@@ -79,7 +80,7 @@ const SavedJobs = () => {
 
   const deleteIt = async (_id) => {
     try {
-      const url = `http://localhost:5000/saved`;
+      const url = `${BASE_URL}saved`;
       console.log(_id);
       const data = await axios.delete(url, { data: { _id } });
       fetchData();

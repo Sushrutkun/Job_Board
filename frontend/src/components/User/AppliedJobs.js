@@ -50,6 +50,10 @@ const AppliedJobs = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
+
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  // console.log(process.env.REACT_APP_BASE_URL);
+
   const convertToUppercase = (str) => {
     if (typeof str === 'undefined') return str;
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -58,27 +62,27 @@ const AppliedJobs = () => {
   const classes = useStyles();
   const fetchData = async () => {
     setLoading(true) //set Loading as true when we are making api call
-    try{
-      const url = `http://localhost:5000/applied`
+    try {
+      const url = `${BASE_URL}applied`
       const { data } = await axios.get(url);
       console.log(data);
       setmyData(data);
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
     setLoading(false) // api call done
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  
+
   const deleteIt = async (_id) => {
-    try{
-      const url = `http://localhost:5000/applied`
+    try {
+      const url = `${BASE_URL}applied`
       const data = await axios.delete(url, { data: { _id } });
       fetchData();
       console.log(data);
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   };

@@ -76,13 +76,13 @@ const JobCard = () => {
   const [searchQuery, setSearchQuery] = useState('java');
   const [loading, setLoading] = useState(false);
   const [addtowish, setAddtowish] = useState(false);
-
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const classes = useStyles();
 
   // const handleToggleWishIcon = async(title,url,company,dateAdded,tags) =>{
   //   try {
-  //     const { data } = await axios.post(`http://localhost:5000/saved`,
+  //     const { data } = await axios.post(`${BASE_URL}saved`,
   //     {
   //       title,
   //       url,
@@ -105,9 +105,9 @@ const JobCard = () => {
   //   )
   // }
 
-  const handleToggleWish = async (title,url,company,dateAdded,tags) => {
+  const handleToggleWish = async (title, url, company, dateAdded, tags) => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/saved`,
+      const { data } = await axios.post(`${BASE_URL}saved`,
         {
           title,
           url,
@@ -122,14 +122,14 @@ const JobCard = () => {
       console.log(data);
     }
     catch (err) {
-      console.log(title,url,company,dateAdded,tags);
+      console.log(title, url, company, dateAdded, tags);
       console.log(err);
     }
   };
 
-  const handleToggleApplied = async (title,url,company,dateAdded,tags) => {
+  const handleToggleApplied = async (title, url, company, dateAdded, tags) => {
     try {
-      const { data } = await axios.post(`http://localhost:5000/applied`,
+      const { data } = await axios.post(`${BASE_URL}applied`,
         {
           title,
           url,
@@ -144,7 +144,7 @@ const JobCard = () => {
       console.log(data);
     }
     catch (err) {
-      console.log(title,url,company,dateAdded,tags);
+      console.log(title, url, company, dateAdded, tags);
       console.log(err);
     }
   };
@@ -234,33 +234,33 @@ const JobCard = () => {
 
                       {/* <Bookmark /> */}
                       <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
-                        onClick={()=>{
+                        onClick={() => {
                           handleToggleWish
-                          (
-                            title,
-                            url,
-                            company,
-                            dateAdded,
-                            tags
-                          )
+                            (
+                              title,
+                              url,
+                              company,
+                              dateAdded,
+                              tags
+                            )
                         }
                         }
                       >
-                        {!addtowish? <BsBookmarkStar/>:   <BsBookmarkStarFill/>}
+                        {!addtowish ? <BsBookmarkStar /> : <BsBookmarkStarFill />}
                       </Typography>
-                      
+
                       <Button variant="outlined" target='blank' href={url} onClick={
-                        ()=>{
+                        () => {
                           handleToggleApplied
-                          (
-                            title,
-                            url,
-                            company,
-                            dateAdded,
-                            tags
-                          )
-                      }
-                    }>
+                            (
+                              title,
+                              url,
+                              company,
+                              dateAdded,
+                              tags
+                            )
+                        }
+                      }>
                         Apply Now
                       </Button>
                     </Box>

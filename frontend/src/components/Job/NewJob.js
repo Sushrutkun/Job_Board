@@ -36,6 +36,7 @@ const NewJob = ({ showModal, setshowModal }) => {
         "SQL",
     ];
     const [selectedSkills, setSelectedSkills] = useState([]);
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const toggleSkill = (skill) => {
         if (selectedSkills.includes(skill)) {
             setSelectedSkills(selectedSkills.filter((s) => s !== skill));
@@ -51,7 +52,7 @@ const NewJob = ({ showModal, setshowModal }) => {
 
     const handleSubmitForm = (formData) => {
         console.log(formData)
-        axios.post('http://localhost:5000/api', formData)
+        axios.post(`${BASE_URL}api`, formData)
             .then((response) => {
                 console.log(formData)
                 // Handle success, e.g., show a success message

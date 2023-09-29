@@ -3,13 +3,16 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin-top: -80px; /* Adjust the value to position it higher */
+  margin-top: -80px;
+  /* Adjust the value to position it higher */
 }
 
 .custom-div {
   position: relative;
-  width: 6em; /* Increased size */
-  height: 6em; /* Increased size */
+  width: 6em;
+  /* Increased size */
+  height: 6em;
+  /* Increased size */
   border: 3px solid #3cefff;
   overflow: hidden;
   animation: spin 3s ease infinite;
@@ -29,6 +32,7 @@
 }
 
 @keyframes spin {
+
   /* 50%, */
   100% {
     transform: rotate(360deg);
@@ -36,12 +40,14 @@
 }
 
 @keyframes fill {
-  0%{
+  0% {
     transform: scaleY(0);
   }
+
   50% {
     transform: scaleY(0.5);
   }
+
   100% {
     transform: scaleY(1);
   }

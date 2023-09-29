@@ -9,6 +9,7 @@ function SignupPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
     const handleusernameChange = (e) => {
@@ -28,7 +29,7 @@ function SignupPage() {
         event.preventDefault();
         try {
             const { data } = await axios.post(
-                `http://localhost:5000/signup`,
+                `${BASE_URL}signup`,
                 {
                     username,
                     email,
