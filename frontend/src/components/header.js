@@ -47,6 +47,7 @@ function Header({themePage , setThemePage}) {
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     navigate('/saved');
+    handleClose();
   };
 
   const handleAppliedJobs = (event) => {
