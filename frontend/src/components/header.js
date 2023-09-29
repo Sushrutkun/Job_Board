@@ -30,6 +30,11 @@ function Header({themePage , setThemePage}) {
   const handleViewProfile = (event) => {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
+    if(!localStorage.getItem('email'))
+    {
+      alert('Please Login to view profile');
+      navigate('/login');
+    }
     console.log(`${event}`);
     setShowProfile(true);
     handleClose();
@@ -46,6 +51,11 @@ function Header({themePage , setThemePage}) {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     console.log(`${event}`);
+    if(!localStorage.getItem('email'))
+    {
+      alert('Please Login to view saved jobs');
+      navigate('/login');
+    }
     navigate('/saved');
     handleClose();
   };
@@ -54,6 +64,11 @@ function Header({themePage , setThemePage}) {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     console.log(`${event}`);
+    if(!localStorage.getItem('email'))
+    {
+      alert('Please Login to view applied jobs');
+      navigate('/login');
+    }
     navigate('/applied');
     handleClose();
   };
