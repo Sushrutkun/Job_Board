@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
     transition: ".2s",
     cursor: "pointer",
     fontWeight: 600,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.dark.main,
     color: "#fff",
   }
 }));
@@ -69,7 +69,7 @@ const useStyles = makeStyles(() => ({
 
 // }
 
-const JobCard = () => {
+const JobCard = ({ themePage }) => {
   const [myData, setmyData] = useState([]);
   // const [myApi, setmyApi] = useState([]);
   const [currPage, setcurrPage] = useState(1);
@@ -190,105 +190,116 @@ const JobCard = () => {
   };
 
   return (
-    <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-      <Searchbar onSearch={handleSearch} />
-      {loading && (
-        <div className="container">
-          <div className="custom-div"></div>
-        </div>
-      )}
-      {myData.length > 0 ? (
-        myData.map((post) => {
-          const { title, url, company, dateAdded, tags } = post;
-          // let icon ;
-          return (
-            <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}>
-              <Grid container alignContent="center"  >
-                <Grid item container xs direction="column">
-                  <Grid item>
-                    <Typography variant="subtitle1" fontSize={"21px"}>{title}</Typography>
-                  </Grid>
-
-                  <Grid item>
-                    <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
-                      {company}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item container xs alignContent="center" ml={16}>
-                  {tags.map((tag) => (
-                    <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
-                      <Box className={classes.skillChip} pl={"10px"} pr={"10px"}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1).toLowerCase()}</Box>
+    <Grid item xs={10}>
+      <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+        <Searchbar onSearch={handleSearch} style={{ borderRadius: '20px' }} />
+        {loading && (
+          <div className="container">
+            <div className="custom-div"></div>
+          </div>
+        )}
+        {myData.length > 0 ? (
+          myData.map((post) => {
+            const { title, url, company, dateAdded, tags } = post;
+            // let icon ;
+            return (
+              <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}
+                style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}
+              >
+                <Grid container alignContent="center">
+                  <Grid item container xs direction="column">
+                    <Grid item>
+                      <Typography variant="subtitle1" fontSize={"21px"} style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>{title}</Typography>
                     </Grid>
-                  ))}
-                </Grid>
 
-                <Grid item container xs direction="column" alignItems="flex-end">
-                  <Grid item>
-                    <Typography variant="caption">
-                      {`${dateAdded.slice(0, 10)}`} | Full time | Remote
-                    </Typography>
-                  </Grid>
-                  <Grid item>
-                    <Box mt={1} display={"flex"} flexDirection={"row"}>
-
-                      {/* <Bookmark /> */}
-                      <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          handleToggleWish
-                            (
-                              title,
-                              url,
-                              company,
-                              dateAdded,
-                              tags
-                            )
-                        }
-                        }
-                      >
-                        {!addtowish ? <BsBookmarkStar /> : <BsBookmarkStarFill />}
+                    <Grid item>
+                      <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
+                        {company}
                       </Typography>
-
-                      <Button variant="outlined" target='blank' href={url} onClick={
-                        () => {
-                          handleToggleApplied
-                            (
-                              title,
-                              url,
-                              company,
-                              dateAdded,
-                              tags
-                            )
-                        }
-                      }>
-                        Apply Now
-                      </Button>
-                    </Box>
+                    </Grid>
                   </Grid>
+                  <Grid item container xs alignContent="center" ml={16}>
+                    {tags.map((tag) => (
+                      <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
+                        <Box className={classes.skillChip} pl={"10px"} pr={"10px"} style={{
+                          color: themePage ? theme.palette.dark.main : theme.palette.light.main,
+                          backgroundColor: themePage ? theme.palette.light.main : theme.palette.dark.main
+                        }}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1).toLowerCase()}</Box>
+                      </Grid>
+                    ))}
+                  </Grid>
+
+                  <Grid item container xs direction="column" alignItems="flex-end">
+                    <Grid item>
+                      <Typography variant="caption" style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                        {`${dateAdded.slice(0, 10)}`} | Full time | Remote
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Box mt={1} display={"flex"} flexDirection={"row"}>
+
+                        {/* <Bookmark /> */}
+                        <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer", color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
+                          onClick={() => {
+                            handleToggleWish
+                              (
+                                title,
+                                url,
+                                company,
+                                dateAdded,
+                                tags
+                              )
+                          }
+                          }
+                        >
+                          {!addtowish ? <BsBookmarkStar /> : <BsBookmarkStarFill />}
+                        </Typography>
+
+                        <Button variant="outlined" target='blank' href={url} onClick={
+                          () => {
+                            handleToggleApplied
+                              (
+                                title,
+                                url,
+                                company,
+                                dateAdded,
+                                tags
+                              )
+                          }
+                        }
+                          style={{
+                            color: themePage ? theme.palette.light.main : theme.palette.dark.main,
+                            borderColor: themePage ? theme.palette.light.main : theme.palette.dark.main,
+                          }}>
+                          Apply Now
+                        </Button>
+                      </Box>
+                    </Grid>
+                  </Grid>
+
                 </Grid>
-
-              </Grid>
-            </Box>
-          );
-        })
-      ) : (
-        <p>No data available.</p>
-      )}
+              </Box>
+            );
+          })
+        ) : (
+          <p>No data available.</p>
+        )}
 
 
-      <Box justifyContent={"center"} alignContent="center" display={"flex"}
-        sx={{
-          margin: "20px 0px"
-        }}>
-        <Pagination
-          count={30}
-          page={Number(currPage)}
-          onChange={handleChange}
-          size="large" color="primary"
-        />
-      </Box>
+        <Box justifyContent={"center"} alignContent="center" display={"flex"}
+          sx={{
+            margin: "20px 0px"
+          }}>
+          <Pagination
+            count={30}
+            page={Number(currPage)}
+            onChange={handleChange}
+            size="large" color="primary"
+          />
+        </Box>
 
-    </div>
+      </div>
+    </Grid>
   );
 };
 

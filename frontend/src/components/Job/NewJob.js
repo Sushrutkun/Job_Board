@@ -15,11 +15,11 @@ const useStyles = makeStyles(() => ({
         transition: ".2s",
         cursor: "pointer",
         fontWeight: 600,
-        border: `1px solid ${theme.palette.secondary.main}`,
-        color: theme.palette.secondary.main,
+        border: `1px solid ${theme.palette.dark.main}`,
+        color: theme.palette.dark.main,
 
         "&.selected": {
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.dark.main,
             color: "#fff",
         },
     },

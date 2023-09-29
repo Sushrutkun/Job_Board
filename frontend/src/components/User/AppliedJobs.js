@@ -38,12 +38,12 @@ const useStyles = makeStyles(() => ({
     transition: ".2s",
     cursor: "pointer",
     fontWeight: 600,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.dark.main,
     color: "#fff",
   }
 }));
 
-const AppliedJobs = () => {
+const AppliedJobs = ({themePage}) => {
   const [myData, setmyData] = useState([]);
   // const [myApi, setmyApi] = useState([]);
   const [currPage, setcurrPage] = useState(1);
@@ -102,11 +102,10 @@ const AppliedJobs = () => {
   };
   return (
     <div>
-      <Header />
-      <Grid container justifyContent={"center"}>
+      <Grid container justifyContent={"center"} style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
         <Grid item xs={10}>
           <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-            {/* <Searchbar onSearch={handleSearch} /> */}
+            <Searchbar onSearch={handleSearch} />
             {loading && (
               <div className="container">
                 <div className="custom-div"></div>
@@ -117,11 +116,14 @@ const AppliedJobs = () => {
                 const { _id, title, url, company, dateAdded, tags } = post;
                 // console.log(post);
                 return (
-                  <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}>
-                    <Grid container alignContent="center"  >
+                  <Box p={5} className={classes.wrapper} m={1} 
+                  borderRadius={'25px'}
+                  style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}
+                  >
+                    <Grid container alignContent="center">
                       <Grid item container xs direction="column">
                         <Grid item>
-                          <Typography variant="subtitle1" fontSize={"21px"}>{title}</Typography>
+                          <Typography variant="subtitle1" fontSize={"21px"} style={{color:themePage? theme.palette.light.main: theme.palette.dark.main}}>{title}</Typography>
                         </Grid>
 
                         <Grid item>
@@ -134,19 +136,28 @@ const AppliedJobs = () => {
                         {/* {console.log(tags)} */}
                         {tags.map((tag) => (
                           <Grid key={tag._id} item p={"5px"} borderRadius={"5px"}>
-                            <Box className={classes.skillChip} pl={"10px"} pr={"10px"}>{convertToUppercase(tag.text)}</Box>
+                            <Box className={classes.skillChip} pl={"10px"} pr={"10px"}
+                             style={{
+                              color: themePage ? theme.palette.dark.main : theme.palette.light.main,
+                              backgroundColor: themePage ? theme.palette.light.main : theme.palette.dark.main
+                            }}
+                            >{convertToUppercase(tag.text)}</Box>
                           </Grid>
                         ))}
                       </Grid>
 
                       <Grid item container xs direction="column" alignItems="flex-end">
                         <Grid item>
-                          <Typography variant="caption">
+                          <Typography variant="caption" style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
                             {`${dateAdded.slice(0, 10)}`} | Full time | Remote
                           </Typography>
                         </Grid>
                         <Grid item>
-                          <Button variant="outlined" onClick={() => deleteIt(_id)} fontSize="20px">
+                          <Button variant="outlined" onClick={() => deleteIt(_id)} 
+                          style={{
+                            color:themePage ? theme.palette.light.main:theme.palette.dark.main,
+                            borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
+                            }} fontSize="20px">
                             <AiOutlineDelete />
                           </Button>
                         </Grid>

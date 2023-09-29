@@ -4,12 +4,16 @@ import axios from 'axios'
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
 
 
+
 function SignupPage() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const [isDarkMode, setDarkMode] = React.useState(false);
+
+    
     const navigate = useNavigate();
 
     const handleusernameChange = (e) => {
@@ -40,16 +44,6 @@ function SignupPage() {
             localStorage.setItem("token", data.token)
             localStorage.setItem("username", data.username)
             localStorage.setItem("email", data.email)
-            //   localStorage.setItem("password", password);
-            //   navigate("/")
-            // } 
-            // console.log(username);
-            // console.log(email);
-            // console.log(password);
-            // localStorage.setItem('username', username);
-            // localStorage.setItem('email', email);
-            // localStorage.setItem('password', password);
-
             event.target.reset();
             navigate('/');
         }

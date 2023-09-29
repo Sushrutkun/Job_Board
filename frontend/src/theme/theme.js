@@ -1,9 +1,12 @@
 import { createTheme } from "@mui/material";
 
 const primary = "#18E1D9";
-const secondary = "#0B0B15";
+const dark = "#0B0B15";
+const light = "white";
 
-const theme = createTheme({
+
+
+const theme  = createTheme({
   typography: {
     fontFamily: "Poppins, sans-serif",
   },
@@ -11,8 +14,11 @@ const theme = createTheme({
     primary: {
       main: primary,
     },
-    secondary: {
-      main: secondary,
+    dark: {
+      main: dark,
+    },
+    light: {
+      main: light,
     },
   },
   components: {
@@ -28,12 +34,12 @@ const theme = createTheme({
         root: {
           fontWeight: 600,
           textTransform: "none",
-          color: secondary,
+          color: dark,
           padding: "6px 24px",
         },
         outlined: {
           borderRadius: "35px",
-          borderColor: secondary,
+          borderColor: dark,
           padding: "6px 20px",
         },
       },

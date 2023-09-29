@@ -14,17 +14,17 @@ const useStyles = makeStyles(() => ({
         transition: ".2s",
         cursor: "pointer",
         fontWeight: 600,
-        border: `1px solid ${theme.palette.secondary.main}`,
-        color: theme.palette.secondary.main,
+        border: `1px solid ${theme.palette.dark.main}`,
+        color: theme.palette.dark.main,
 
         "&.selected": {
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: theme.palette.dark.main,
             color: "#fff",
         },
     },
 }));
 
-const ViewProfile = ({ setShowProfile }) => {
+const ViewProfile = ({ setShowProfile, themePage }) => {
     const skill = [
         "Javascript",
         "React",
@@ -103,9 +103,9 @@ const ViewProfile = ({ setShowProfile }) => {
 
 
     return (
-        <Dialog open={true} fullWidth onSubmit={handleSubmit}>
-            <DialogTitle >
-                <Box display={'flex'} justifyContent={'space-between'}>
+        <Dialog open={true} onSubmit={handleSubmit} style={{display:'flex',flexDirection:'row',justifyContent:'center',alignItems:'center' }} >
+            <DialogTitle style={{marginBottom:'-10px',marginTop:'-10px'}}>
+                <Box style={{display:'flex',flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
                     <Box>
                         Your Profile
                     </Box>
@@ -118,16 +118,14 @@ const ViewProfile = ({ setShowProfile }) => {
                     </Box>
                 </Box>
             </DialogTitle>
-            <DialogContent>
-                <Container>
-                    <Typography>
+            <DialogContent style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
+                <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
                         Your Profile
                     </Typography>
                     <IconButton
                         className="imgcontainer"
-                        style={{ marginBottom: '50px' }}
-                    // width='90px'
-                    // height='90px'
+                        style={{ marginBottom: '20px', color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
                     >
                         <Avatar
                             src="https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg"
@@ -141,15 +139,18 @@ const ViewProfile = ({ setShowProfile }) => {
                     </IconButton>
                 </Container>
                 <Container>
-                    <Typography>
-                        Username : {username}
-                    </Typography>
-                    <Typography>
-                        Email : {email}
-                    </Typography>
-                    <Typography>
-                        Password : {password}
-                    </Typography>
+                    <Container>
+                        <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                            Username : {username}
+                        </Typography>
+                        <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                            Email : {email}
+                        </Typography>
+                        <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                            Password : {password}
+                        </Typography>
+
+                    </Container>
                 </Container>
             </DialogContent>
             {/* <DialogContent >

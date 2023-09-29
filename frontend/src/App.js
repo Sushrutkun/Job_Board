@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, ThemeProvider } from '@mui/material';
 import Header from './components/header';
 import theme from './theme/theme'
@@ -11,6 +11,9 @@ import SavedJobs from './components/User/SavedJobs';
 import AppliedJobs from './components/User/AppliedJobs';
 
 function App() {
+  // if false light theme 
+  // else dark theme
+  const [themePage, setThemePage] = useState(false);
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -18,18 +21,28 @@ function App() {
           <Routes>
             <Route path='/' element={
               <>
-                <Header />
-                <Grid container justifyContent={"center"}>
-                  <Grid item xs={10}>
-                    <JobCard key={"1"} />
-                  </Grid>
+                <Header themePage={themePage} setThemePage={setThemePage} />
+                <Grid container justifyContent={"center"}
+                  style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}
+                >
+                  <JobCard key={"1"} themePage={themePage} />
                 </Grid>
               </>
             } />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/signup' element={<SignupPage />} />
-            <Route path='/saved' element={<SavedJobs />} />
-            <Route path='/applied' element={<AppliedJobs />} />
+            <Route path='/saved' element={
+              <>
+                <Header themePage={themePage} setThemePage={setThemePage} />
+                <SavedJobs themePage={themePage} />
+              </>
+            } />
+            <Route path='/applied' element={
+              <>
+                <Header themePage={themePage} setThemePage={setThemePage} />
+                <AppliedJobs themePage={themePage} />
+              </>
+            } />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
