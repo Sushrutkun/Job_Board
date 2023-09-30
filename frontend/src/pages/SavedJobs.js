@@ -1,14 +1,14 @@
 import React from 'react'
-import Header from '../header'
+import Header from '../components/header/header'
 import { makeStyles } from '@material-ui/styles';
 import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
 import { BsBookmarkStarFill } from 'react-icons/bs'
 import { AiOutlineDelete } from 'react-icons/ai'
-import theme from '../../theme/theme'
+import theme from '../theme/theme'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Searchbar from '../searchbar';
-import '../Job/loading.css'
+import Searchbar from '../components/searchbar/searchbar';
+import './Jobs/loading.css'
 import axois from 'axios';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

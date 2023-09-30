@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Avatar, Box, Button, Grid, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
-import NewJob from "./Job/NewJob";
+import NewJob from "../Newjob/NewJob";
 import { useNavigate } from 'react-router-dom';
-import ViewProfile from './User/ViewProfile';
-import logo_job from '../assets/Job-board-new.png';
+import ViewProfile from '../Profile/ViewProfile';
+import logo_job from '../../assets/Job-board-new.png';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
-function Header({themePage , setThemePage}) {
+function Header({ themePage, setThemePage }) {
   const [showModal, setshowModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
@@ -30,14 +30,16 @@ function Header({themePage , setThemePage}) {
   const handleViewProfile = (event) => {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
-    if(!localStorage.getItem('email'))
-    {
+    if (localStorage.getItem('email')==undefined) {
       alert('Please Login to view profile');
       navigate('/login');
+      handleClose();
     }
-    console.log(`${event}`);
-    setShowProfile(true);
-    handleClose();
+    else {
+      console.log(`${event}`);
+      setShowProfile(true);
+      handleClose();
+    }
   };
 
   const handleHome = (event) => {
@@ -45,32 +47,37 @@ function Header({themePage , setThemePage}) {
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     navigate('/');
+    handleClose();  
   };
 
   const handleSavedJobs = (event) => {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     console.log(`${event}`);
-    if(!localStorage.getItem('email'))
-    {
+    if (localStorage.getItem('email') == undefined) {
       alert('Please Login to view saved jobs');
       navigate('/login');
+      handleClose();
     }
-    navigate('/saved');
-    handleClose();
+    else {
+      navigate('/saved');
+      handleClose();
+    }
   };
 
   const handleAppliedJobs = (event) => {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     console.log(`${event}`);
-    if(!localStorage.getItem('email'))
-    {
+    if (localStorage.getItem('email') == undefined) {
       alert('Please Login to view applied jobs');
       navigate('/login');
+      handleClose();
     }
-    navigate('/applied');
-    handleClose();
+    else {
+      navigate('/applied');
+      handleClose();
+    }
   };
 
 
@@ -81,13 +88,13 @@ function Header({themePage , setThemePage}) {
           <Box display={"flex"} justifyContent={"space-between"}>
             <Box>
               <img src={logo_job} alt="logo"
-                style={{ objectFit: 'cover', width: "100px", height: '100px',cursor:'pointer'}}
+                style={{ objectFit: 'cover', width: "100px", height: '100px', cursor: 'pointer' }}
                 onClick={() => { navigate('/') }}
               />
             </Box>
             <Box display={"flex"} flexDirection={'column'} alignItems={"flex-end"} gap={'10px'}>
               <div>
-                <div id='dark-light' style={{ display: 'flex', flexDirection: 'row',alignItems:'center',justifyContent:'space-between', gap:'30px'}}>
+                <div id='dark-light' style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '30px' }}>
                   <DarkModeSwitch
                     checked={isDarkMode}
                     onChange={toggleDarkMode}
@@ -124,7 +131,7 @@ function Header({themePage , setThemePage}) {
                   >LogIn</MenuItem>
                 </Menu>
                 {showProfile ?
-                  <ViewProfile setShowProfile={setShowProfile} themePage={themePage}/> : null}
+                  <ViewProfile setShowProfile={setShowProfile} themePage={themePage} /> : null}
               </div>
               <Button variant="contained"
                 onClick={() => {

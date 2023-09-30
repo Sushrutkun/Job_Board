@@ -1,14 +1,14 @@
 import './App.css';
 import React, { useState } from 'react';
 import { Button, Grid, ThemeProvider } from '@mui/material';
-import Header from './components/header';
+import Header from './components/header/header';
 import theme from './theme/theme'
-import JobCard from './components/Job/JobCard';
+import JobCard from './pages/Jobs/JobCard';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/login';
 import SignupPage from './pages/signup';
-import SavedJobs from './components/User/SavedJobs';
-import AppliedJobs from './components/User/AppliedJobs';
+import SavedJobs from './pages/SavedJobs';
+import AppliedJobs from './pages/AppliedJobs';
 
 function App() {
   // if false light theme 

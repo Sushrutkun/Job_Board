@@ -29,9 +29,10 @@ function Searchbar({ onSearch }) {
   const handleChange = (event) => {
     setInputData(event.target.value)
   }
-  const handleSearch = () => {
+  const handleSearch = (e) => {
     // Handle the form submission with the input value
     // console.log('Input value:', inputData);
+    e.preventDefault();
     onSearch(inputData);
   };
   const classes = useStyles();

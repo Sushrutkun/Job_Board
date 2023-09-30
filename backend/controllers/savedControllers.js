@@ -2,7 +2,7 @@ import saved from "../models/savedModel.js"
 import asyncHandler from "express-async-handler";
 
 export const addToWishlist = asyncHandler(async (req, res) => {
-    const {title, url, company, dateAdded, tags } = req.body;
+    const {user,title, url, company, dateAdded, tags } = req.body;
     const icon = true;
     if (!title || !url || !company || !dateAdded) {
         res.status(400);

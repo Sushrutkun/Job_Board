@@ -5,10 +5,9 @@ import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
 import theme from '../../theme/theme'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Searchbar from '../searchbar';
+import Searchbar from '../../components/searchbar/searchbar';
 import './loading.css'
 import axios from 'axios';
-import Bookmark from './Bookmark';
 
 
 const useStyles = makeStyles(() => ({
@@ -44,31 +43,6 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-// const query='java';
-
-// const pageno='1';
-
-// function geturl (query,pageno){
-//   return(
-//     // const baseurl=
-//     'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/'+
-//     // const SearchQuery=
-//     "Search?SearchQuery="+query
-//     // +
-//     // const page=
-//     // '&PageSize=10&PageNumber='+pageno
-//   );
-// }
-
-
-// url for using API is => 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java' simple
-// 'https://jobsearch4.p.rapidapi.com/api/v1/Jobs/Search?SearchQuery=java&PageSize=10&PageNumber=1' with pagenum
-
-// function getUrl (query,pageno)
-// {
-
-// }
-
 const JobCard = ({ themePage }) => {
   const [myData, setmyData] = useState([]);
   // const [myApi, setmyApi] = useState([]);
@@ -79,31 +53,6 @@ const JobCard = ({ themePage }) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const classes = useStyles();
-
-  // const handleToggleWishIcon = async(title,url,company,dateAdded,tags) =>{
-  //   try {
-  //     const { data } = await axios.post(`${BASE_URL}saved`,
-  //     {
-  //       title,
-  //       url,
-  //       company,
-  //       dateAdded,
-  //       tags
-  //     }
-  //     )
-  //     const wishIcon =data.icon
-  //     // setAddtowish(data.icon)
-  //     console.log(data);
-  //   }
-  //   catch (err) {
-  //     console.log(title,url,company,dateAdded,tags);
-  //     console.log(err);
-  //   }
-  //   return (
-  //     // {wishIcon ? <BsBookmarkStar/>:<BsBookmarkStarFill/>}
-  //     <BsBookmarkStar/>
-  //   )
-  // }
 
   const handleToggleWish = async (title, url, company, dateAdded, tags) => {
     try {
@@ -116,9 +65,6 @@ const JobCard = ({ themePage }) => {
           tags
         }
       )
-      // console.log(data.title);
-      // setAddtowish(await data.icon);
-      // console.log(addtowish);
       console.log(data);
     }
     catch (err) {
@@ -138,9 +84,6 @@ const JobCard = ({ themePage }) => {
           tags
         }
       )
-      // console.log(data.title);
-      // setAddtowish(await data.icon);
-      // console.log(addtowish);
       console.log(data);
     }
     catch (err) {
@@ -148,6 +91,7 @@ const JobCard = ({ themePage }) => {
       console.log(err);
     }
   };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,9 +118,9 @@ const JobCard = ({ themePage }) => {
       setLoading(false) // api call done
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
-
     fetchData();
   }, [currPage, searchQuery]);
+
 
   const handleChange = (event, value) => {
     setcurrPage(value);
@@ -184,6 +128,7 @@ const JobCard = ({ themePage }) => {
   };
 
   const handleSearch = (value) => {
+    console.log(value);
     setSearchQuery(value);
     setcurrPage(1);
     console.log(value);
@@ -241,30 +186,32 @@ const JobCard = ({ themePage }) => {
                         {/* <Bookmark /> */}
                         <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer", color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
                           onClick={() => {
-                            handleToggleWish
-                              (
-                                title,
-                                url,
-                                company,
-                                dateAdded,
-                                tags
-                              )
+                            localStorage.getItem('email') == undefined ? alert('Please Login First') :
+                              handleToggleWish
+                                (
+                                  title,
+                                  url,
+                                  company,
+                                  dateAdded,
+                                  tags
+                                )
                           }
                           }
                         >
-                          {!addtowish ? <BsBookmarkStar /> : <BsBookmarkStarFill />}
+                          <BsBookmarkStar />
                         </Typography>
 
                         <Button variant="outlined" target='blank' href={url} onClick={
                           () => {
-                            handleToggleApplied
-                              (
-                                title,
-                                url,
-                                company,
-                                dateAdded,
-                                tags
-                              )
+                            localStorage.getItem('email') == undefined ? console.log('Please Login First') :
+                              handleToggleApplied
+                                (
+                                  title,
+                                  url,
+                                  company,
+                                  dateAdded,
+                                  tags
+                                )
                           }
                         }
                           style={{
@@ -284,20 +231,24 @@ const JobCard = ({ themePage }) => {
         ) : (
           <p>No data available.</p>
         )}
-
-
-        <Box justifyContent={"center"} alignContent="center" display={"flex"}
-          sx={{
-            margin: "20px 0px"
-          }}>
-          <Pagination
-            count={30}
-            page={Number(currPage)}
-            onChange={handleChange}
-            size="large" color="primary"
-          />
-        </Box>
-
+      <Box justifyContent="center" alignContent="center" display="flex" sx={{ margin: '20px 0px' ,'.Mui-selected':{
+        color: theme.palette.light.main,
+      }}}>
+      <Pagination
+        count={30}
+        page={currPage}
+        onChange={handleChange}
+        size="large"
+        color="primary"
+        sx={{
+          '& .Mui-selected': {
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.light.main,
+          },
+          
+        }}
+      />
+    </Box>
       </div>
     </Grid>
   );
