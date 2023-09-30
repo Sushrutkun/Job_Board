@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
+import { toast } from 'react-toastify';
 // const URL=process.env.REACT_APP_URL_API;
 
 // const BASE_URL = URL+"/api/v1/users/";
@@ -43,7 +44,16 @@ function LoginPage() {
     }
     catch (err) {
       console.log(err);
-      alert("Username or Password is Incorrect")
+      toast.error("Username or Password   is Incorrect", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme:'light',
+        });
     }
     // const name = e.target.elements.username;
     // const password = e.target.elements.password;

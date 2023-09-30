@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import ViewProfile from '../Profile/ViewProfile';
 import logo_job from '../../assets/Job-board-new.png';
 import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { toast } from 'react-toastify';
 
 function Header({ themePage, setThemePage }) {
   const [showModal, setshowModal] = useState(false);
@@ -31,7 +32,16 @@ function Header({ themePage, setThemePage }) {
     // Handle the click action based on the selected option.
     // You can perform state updates or other actions here.
     if (localStorage.getItem('email')==undefined) {
-      alert('Please Login to view profile');
+      toast.warn('Please Login to view profile', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: themePage ? "dark" : "light",
+        });
       navigate('/login');
       handleClose();
     }
@@ -55,7 +65,16 @@ function Header({ themePage, setThemePage }) {
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     if (localStorage.getItem('email') == undefined) {
-      alert('Please Login to view saved jobs');
+      toast.warn('Please Login for saved jobs', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: themePage? 'dark':'light',
+        })
       navigate('/login');
       handleClose();
     }
@@ -70,7 +89,16 @@ function Header({ themePage, setThemePage }) {
     // You can perform state updates or other actions here.
     console.log(`${event}`);
     if (localStorage.getItem('email') == undefined) {
-      alert('Please Login to view applied jobs');
+      toast.warn('Please Login for applied jobs', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: themePage? 'dark':'light',
+        })
       navigate('/login');
       handleClose();
     }

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Searchbar from '../../components/searchbar/searchbar';
 import './loading.css'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const useStyles = makeStyles(() => ({
@@ -186,7 +187,16 @@ const JobCard = ({ themePage }) => {
                         {/* <Bookmark /> */}
                         <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer", color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
                           onClick={() => {
-                            localStorage.getItem('email') == undefined ? alert('Please Login First') :
+                            localStorage.getItem('email') == undefined ? toast.warn('Please Login First', {
+                              position: "top-center",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: themePage? 'dark':'light',
+                              }) :
                               handleToggleWish
                                 (
                                   title,

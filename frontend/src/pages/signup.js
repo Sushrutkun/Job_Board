@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
+import { toast } from 'react-toastify';
 
 
 
@@ -49,7 +50,17 @@ function SignupPage() {
         }
         catch (err) {
             console.log(err);
-            alert("Error Occured Change email id or username")
+            toast.error("Error Occured Change  email-id or username", {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme:'light',
+                });
+            // alert("Error Occured Change email id or username")
         }
     };
     return (
