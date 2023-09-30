@@ -110,7 +110,7 @@ function Header({ themePage, setThemePage }) {
 
 
   return (
-    <Box py={8} bgcolor={"dark.main"} color={"white"} display={"flex"} flexDirection={"column"} paddingTop={'50px'}>
+    <Box py={8} bgcolor={"dark.main"} color={"white"} display={"flex"} flexDirection={"column"} paddingTop={'50px'} borderBottom={"3px solid #333"}>
       <Grid container justifyContent="center" >
         <Grid item xs={10}>
           <Box display={"flex"} justifyContent={"space-between"}>

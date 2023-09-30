@@ -36,11 +36,11 @@ function App() {
               <Route path='/' element={
                 <>
                   <Header themePage={themePage} setThemePage={setThemePage} />
-                  <Grid container justifyContent={"center"}
+                  {/* <Grid container justifyContent={"center"}
                     style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}
-                  >
+                  > */}
                     <JobCard key={"1"} themePage={themePage} />
-                  </Grid>
+                  {/* </Grid> */}
                 </>
               } />
               <Route path='/login' element={<LoginPage />} />

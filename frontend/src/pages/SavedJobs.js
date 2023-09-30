@@ -12,20 +12,39 @@ import './Jobs/loading.css'
 import axois from 'axios';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import PagePagination from '../components/pagination/pagePagination';
 
 
 
 const useStyles = makeStyles(() => ({
-  wrapper: {
+  wrapperlight: {
     border: '1px solid #c8c8c8',
     cursor: "pointer",
     transition: "0.3s",
     boxShadow: "0px 1px 5px rgba(0,0,0,0.1)",
     borderRadius: "5px",
     "&:hover": {
-      boxShadow: "0px 5px 25px rgba(0,0,0,0.1)",
+      boxShadow: "0px 5px 25px rgba(0,0,0,0.5)",
       borderLeft: "6px solid #000",
+      borderRight: "1px solid #000",
+      borderTop: "1px solid #000",
+      borderBottom: "1px solid #000",
     },
+  },
+  wrapperdark: {
+    border: '1px solid #333',
+    cursor: "pointer",
+    transition: "0.3s",
+    boxShadow: "0px 1px 5px rgba(255,255,255,0.4)",
+    borderRadius: "5px",
+    "&:hover": {
+      boxShadow: "0px 1px 5px rgba(255,255,255,1)",
+      borderLeft: "6px solid #FFF",
+      borderRight: "1px solid #FFF",
+      borderTop: "1px solid #FFF",
+      borderBottom: "1px solid #FFF",
+    },
+    
   },
   companyName: {
     fontSize: "13.5px",
@@ -106,7 +125,7 @@ const SavedJobs = ({themePage}) => {
     console.log(value);
   };
   return (
-    <div>
+    // <div>
       <Grid container justifyContent={"center"} style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
         <Grid item xs={10}>
           <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
@@ -120,8 +139,8 @@ const SavedJobs = ({themePage}) => {
               myData.map((post) => {
                 const { _id, title, url, company, dateAdded, tags } = post;
                 return (
-                  <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}
-                  style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
+                  <Box p={5} className={themePage ? classes.wrapperdark : classes.wrapperlight} m={1} borderRadius={'25px'}
+                  style={{ backgroundColor: themePage ? "#0F1C28" : theme.palette.light.main }}>
                     <Grid container alignContent="center"  >
                       <Grid item container xs direction="column">
                         <Grid item>
@@ -186,18 +205,13 @@ const SavedJobs = ({themePage}) => {
               sx={{
                 margin: "20px 0px"
               }}>
-              <Pagination
-                count={30}
-                page={Number(currPage)}
-                onChange={handleChange}
-                size="large" color="primary"
-              />
+              <PagePagination currPage={currPage} handleChange={handleChange} themePage={themePage} />
             </Box>
 
           </div>
         </Grid>
       </Grid>
-    </div>
+    // </div>
   )
 }
 

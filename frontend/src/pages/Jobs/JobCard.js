@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import { Box, Button, Grid, Pagination, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 import React from 'react'
 import { BsBookmarkStar, BsBookmarkStarFill } from 'react-icons/bs'
 import theme from '../../theme/theme'
@@ -9,18 +9,37 @@ import Searchbar from '../../components/searchbar/searchbar';
 import './loading.css'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PagePagination from '../../components/pagination/pagePagination';
 
 
 const useStyles = makeStyles(() => ({
-  wrapper: {
+  wrapperlight: {
     border: '1px solid #c8c8c8',
     cursor: "pointer",
     transition: "0.3s",
     boxShadow: "0px 1px 5px rgba(0,0,0,0.1)",
     borderRadius: "5px",
     "&:hover": {
-      boxShadow: "0px 5px 25px rgba(0,0,0,0.1)",
+      boxShadow: "0px 5px 25px rgba(0,0,0,0.5)",
       borderLeft: "6px solid #000",
+      borderRight: "1px solid #000",
+      borderTop: "1px solid #000",
+      borderBottom: "1px solid #000",
+    },
+  },
+  wrapperdark: {
+    border: '1px solid #333',
+    cursor: "pointer",
+    transition: "0.3s",
+    boxShadow: "0px 1px 5px rgba(255,255,255,0.4)",
+    borderRadius: "5px",
+    "&:hover": {
+      boxShadow: "0px 1px 5px rgba(255,255,255,1)",
+      borderLeft: "6px solid #FFF",
+      borderRight: "1px solid #FFF",
+      borderTop: "1px solid #FFF",
+      borderBottom: "1px solid #FFF",
     },
   },
   companyName: {
@@ -136,84 +155,95 @@ const JobCard = ({ themePage }) => {
   };
 
   return (
-    <Grid item xs={10}>
-      <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-        <Searchbar onSearch={handleSearch} style={{ borderRadius: '20px' }} />
-        {loading && (
-          <div className="container">
-            <div className="custom-div"></div>
-          </div>
-        )}
-        {myData.length > 0 ? (
-          myData.map((post) => {
-            const { title, url, company, dateAdded, tags } = post;
-            // let icon ;
-            return (
-              <Box p={5} className={classes.wrapper} m={1} borderRadius={'25px'}
-                style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}
-              >
-                <Grid container alignContent="center">
-                  <Grid item container xs direction="column">
-                    <Grid item>
-                      <Typography variant="subtitle1" fontSize={"21px"} style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>{title}</Typography>
-                    </Grid>
-
-                    <Grid item>
-                      <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
-                        {company}
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid item container xs alignContent="center" ml={16}>
-                    {tags.map((tag) => (
-                      <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
-                        <Box className={classes.skillChip} pl={"10px"} pr={"10px"} style={{
-                          color: themePage ? theme.palette.dark.main : theme.palette.light.main,
-                          backgroundColor: themePage ? theme.palette.light.main : theme.palette.dark.main
-                        }}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1).toLowerCase()}</Box>
+    <Grid container justifyContent={"center"} style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
+      <Grid item xs={10}>
+        <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+          <Searchbar onSearch={handleSearch} style={{ borderRadius: '20px' }} />
+          {loading && (
+            <div className="container">
+              <div className="custom-div"></div>
+            </div>
+          )}
+          {myData.length > 0 ? (
+            myData.map((post) => {
+              const { title, url, company, dateAdded, tags } = post;
+              // let icon ;
+              return (
+                <Box p={5} className={themePage ? classes.wrapperdark : classes.wrapperlight} m={1} borderRadius={'25px'}
+                  style={{ backgroundColor: themePage ? "#0F1C28" : theme.palette.light.main }}>
+                  <Grid container alignContent="center">
+                    <Grid item container xs direction="column">
+                      <Grid item>
+                        <Typography variant="subtitle1" fontSize={"21px"} style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>{title}</Typography>
                       </Grid>
-                    ))}
-                  </Grid>
 
-                  <Grid item container xs direction="column" alignItems="flex-end">
-                    <Grid item>
-                      <Typography variant="caption" style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
-                        {`${dateAdded.slice(0, 10)}`} | Full time | Remote
-                      </Typography>
-                    </Grid>
-                    <Grid item>
-                      <Box mt={1} display={"flex"} flexDirection={"row"}>
-
-                        {/* <Bookmark /> */}
-                        <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer", color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
-                          onClick={() => {
-                            localStorage.getItem('email') == undefined ? toast.warn('Please Login First', {
-                              position: "top-center",
-                              autoClose: 2000,
-                              hideProgressBar: false,
-                              closeOnClick: true,
-                              pauseOnHover: true,
-                              draggable: true,
-                              progress: undefined,
-                              theme: themePage? 'dark':'light',
-                              }) :
-                              handleToggleWish
-                                (
-                                  title,
-                                  url,
-                                  company,
-                                  dateAdded,
-                                  tags
-                                )
-                          }
-                          }
-                        >
-                          <BsBookmarkStar />
+                      <Grid item>
+                        <Typography className={classes.companyName} variant="subtitle2" pl={"5px"} pr={"5px"}>
+                          {company}
                         </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid item container xs alignContent="center" ml={16}>
+                      {tags.map((tag) => (
+                        <Grid key={tag.id} item p={"5px"} borderRadius={"5px"}>
+                          <Box className={classes.skillChip} pl={"10px"} pr={"10px"} style={{
+                            color: themePage ? theme.palette.dark.main : theme.palette.light.main,
+                            backgroundColor: themePage ? theme.palette.light.main : theme.palette.dark.main
+                          }}>{tag.text.charAt(0).toUpperCase() + tag.text.slice(1).toLowerCase()}</Box>
+                        </Grid>
+                      ))}
+                    </Grid>
 
-                        <Button variant="outlined" target='blank' href={url} onClick={
-                          () => {
-                            localStorage.getItem('email') == undefined ? console.log('Please Login First') :
+                    <Grid item container xs direction="column" alignItems="flex-end">
+                      <Grid item>
+                        <Typography variant="caption" style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                          {`${dateAdded.slice(0, 10)}`} | Full time | Remote
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Box mt={1} display={"flex"} flexDirection={"row"}>
+
+                          {/* <Bookmark /> */}
+                          <Typography pt={1} pr={1} fontSize={'27px'} style={{ cursor: "pointer", color: themePage ? theme.palette.light.main : theme.palette.dark.main }}
+                            onClick={() => {
+                              localStorage.getItem('email') == undefined ? toast.warn('Please Login First', {
+                                position: "top-center",
+                                autoClose: 2000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: themePage ? 'dark' : 'light',
+                              }) :
+                                handleToggleWish
+                                  (
+                                    title,
+                                    url,
+                                    company,
+                                    dateAdded,
+                                    tags
+                                  )
+                            }
+                            }
+                          >
+                            <BsBookmarkStar />
+                          </Typography>
+
+                          <Button variant="outlined" target='blank' href={url} onClick={
+                            () => {
+                              localStorage.getItem('email') == undefined ? console.log('Please Login First') :
+                                // ()=>{
+                                toast.success('Saved', {
+                                  position: "top-center",
+                                  autoClose: 2000,
+                                  hideProgressBar: false,
+                                  closeOnClick: true,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                  theme: themePage ? 'dark' : 'light',
+                                })
                               handleToggleApplied
                                 (
                                   title,
@@ -222,44 +252,35 @@ const JobCard = ({ themePage }) => {
                                   dateAdded,
                                   tags
                                 )
+                              // }
+                            }
                           }
-                        }
-                          style={{
-                            color: themePage ? theme.palette.light.main : theme.palette.dark.main,
-                            borderColor: themePage ? theme.palette.light.main : theme.palette.dark.main,
-                          }}>
-                          Apply Now
-                        </Button>
-                      </Box>
+                            style={{
+                              color: themePage ? theme.palette.light.main : theme.palette.dark.main,
+                              borderColor: themePage ? theme.palette.light.main : theme.palette.dark.main,
+                            }}>
+                            Apply Now
+                          </Button>
+                        </Box>
+                      </Grid>
                     </Grid>
-                  </Grid>
 
-                </Grid>
-              </Box>
-            );
-          })
-        ) : (
-          <p>No data available.</p>
-        )}
-      <Box justifyContent="center" alignContent="center" display="flex" sx={{ margin: '20px 0px' ,'.Mui-selected':{
-        color: theme.palette.light.main,
-      }}}>
-      <Pagination
-        count={30}
-        page={currPage}
-        onChange={handleChange}
-        size="large"
-        color="primary"
-        sx={{
-          '& .Mui-selected': {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.light.main,
-          },
-          
-        }}
-      />
-    </Box>
-      </div>
+                  </Grid>
+                </Box>
+              );
+            })
+          ) : (
+            <p>No data available.</p>
+          )}
+          <Box justifyContent="center" alignContent="center" display="flex" sx={{
+              margin: '20px 0px', '.Mui-selected': {
+                color: theme.palette.light.main,
+              }
+            }}>
+            <PagePagination currPage={currPage} handleChange={handleChange} themePage={themePage} />
+          </Box>
+        </div>
+      </Grid>
     </Grid>
   );
 };
