@@ -1,15 +1,17 @@
 import saved from "../models/savedModel.js"
+import sign from "../models/signModel.js"
 import asyncHandler from "express-async-handler";
 
 export const addToWishlist = asyncHandler(async (req, res) => {
-    const {user,title, url, company, dateAdded, tags } = req.body;
+    const {username,title, url, company, dateAdded, tags } = req.body;
     const icon = true;
     if (!title || !url || !company || !dateAdded) {
         res.status(400);
         throw new Error("All fields are mandatory !");
     }
     const revWishlist = await saved.findOne({ "title": title , "company": company ,"dateAdded": dateAdded });
-
+    const userFound = await sign.findOne({"username":username});
+    // console.log(userFound);
     if (revWishlist) {
         try {
             const savedJobs = await saved.findByIdAndUpdate(revWishlist._id, {
@@ -24,6 +26,7 @@ export const addToWishlist = asyncHandler(async (req, res) => {
     else {
         try{
             const savedJobs = await saved.create({
+                user:userFound._id,
                 title,
                 url,
                 company,
@@ -41,8 +44,14 @@ export const addToWishlist = asyncHandler(async (req, res) => {
 });
 export const getWishlist = asyncHandler(async (req, res) => 
 {
+    const {username} = req.query;
+    // console.log(req.query);
+    // console.log(username);
+    const findUser=await sign.findOne({"username":username});
+    // console.log(findUser);
+
     try{
-        const savedJobs = await saved.find();
+        const savedJobs = await saved.find({"user":findUser._id});
         res.status(200).json(savedJobs);
     }
     catch(err){

@@ -78,6 +78,7 @@ const JobCard = ({ themePage }) => {
     try {
       const { data } = await axios.post(`${BASE_URL}saved`,
         {
+          username: localStorage.getItem('username'),
           title,
           url,
           company,
@@ -85,6 +86,16 @@ const JobCard = ({ themePage }) => {
           tags
         }
       )
+      toast.success('Saved', {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: themePage ? 'dark' : 'light',
+      });
       console.log(data);
     }
     catch (err) {
@@ -97,6 +108,7 @@ const JobCard = ({ themePage }) => {
     try {
       const { data } = await axios.post(`${BASE_URL}applied`,
         {
+          username: localStorage.getItem('username'),
           title,
           url,
           company,
@@ -230,21 +242,19 @@ const JobCard = ({ themePage }) => {
                             <BsBookmarkStar />
                           </Typography>
 
-                          <Button variant="outlined" target='blank' href={url} onClick={
-                            () => {
-                              localStorage.getItem('email') == undefined ? console.log('Please Login First') :
-                                // ()=>{
-                                toast.success('Saved', {
-                                  position: "top-center",
-                                  autoClose: 2000,
-                                  hideProgressBar: false,
-                                  closeOnClick: true,
-                                  pauseOnHover: true,
-                                  draggable: true,
-                                  progress: undefined,
-                                  theme: themePage ? 'dark' : 'light',
-                                })
-                              handleToggleApplied
+                          <Button variant="outlined" target='blank' href={url} 
+                          onClick={() => {
+                            localStorage.getItem('email') == undefined ? toast.warn('Please Login First', {
+                              position: "top-center",
+                              autoClose: 2000,
+                              hideProgressBar: false,
+                              closeOnClick: true,
+                              pauseOnHover: true,
+                              draggable: true,
+                              progress: undefined,
+                              theme: themePage ? 'dark' : 'light',
+                            }) :
+                            handleToggleApplied
                                 (
                                   title,
                                   url,
@@ -252,9 +262,23 @@ const JobCard = ({ themePage }) => {
                                   dateAdded,
                                   tags
                                 )
-                              // }
-                            }
                           }
+                          }
+                          // onClick={
+                          //   () => {
+                          //     localStorage.getItem('email') == undefined ? console.log('Please Login First') :
+                          //       // ()=>{
+                          //     handleToggleApplied
+                          //       (
+                          //         title,
+                          //         url,
+                          //         company,
+                          //         dateAdded,
+                          //         tags
+                          //       )
+                          //     // }
+                          //   }
+                          // }
                             style={{
                               color: themePage ? theme.palette.light.main : theme.palette.dark.main,
                               borderColor: themePage ? theme.palette.light.main : theme.palette.dark.main,

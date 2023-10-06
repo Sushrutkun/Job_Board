@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const appliedSchema = mongoose.Schema({
+    user: {
+        type:mongoose.Schema.Types.ObjectId , ref:'signup',
+        // required: [true, "Please Add user"]
+    },
     title: {
         type: String,
         required: [true, "Please Add Job Title"]

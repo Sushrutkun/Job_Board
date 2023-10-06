@@ -85,8 +85,13 @@ const SavedJobs = ({themePage}) => {
   const fetchData = async () => {
     setLoading(true) //set Loading as true when we are making api call
     try {
-      const url = `${BASE_URL}saved`
-      const { data } = await axois.get(url);
+      // const url = `${BASE_URL}saved`
+      const { data } = await axois.get(`${BASE_URL}saved`,
+        {
+          params: {
+            username:localStorage.getItem('username'),
+          }
+        });
       console.log(data);
       setmyData(data);
     }
@@ -129,7 +134,7 @@ const SavedJobs = ({themePage}) => {
       <Grid container justifyContent={"center"} style={{ backgroundColor: themePage ? theme.palette.dark.main : theme.palette.light.main }}>
         <Grid item xs={10}>
           <div display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-            <Searchbar onSearch={handleSearch} />
+            {/* <Searchbar onSearch={handleSearch} /> */}
             {loading && (
               <div className="container">
                 <div className="custom-div"></div>
@@ -201,12 +206,12 @@ const SavedJobs = ({themePage}) => {
             )}
 
 
-            <Box justifyContent={"center"} alignContent="center" display={"flex"}
+            {/* <Box justifyContent={"center"} alignContent="center" display={"flex"}
               sx={{
                 margin: "20px 0px"
               }}>
               <PagePagination currPage={currPage} handleChange={handleChange} themePage={themePage} />
-            </Box>
+            </Box> */}
 
           </div>
         </Grid>
