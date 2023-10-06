@@ -1,7 +1,8 @@
 import { createTheme } from "@mui/material";
 
 const primary = "#18E1D9";
-const dark = "#0B0B15";
+// const dark = "#0B0B15";
+const dark = "#030C10"
 const light = "white";
 
 

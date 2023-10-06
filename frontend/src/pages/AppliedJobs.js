@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0px 1px 5px rgba(255,255,255,0.4)",
     borderRadius: "5px",
     "&:hover": {
-      boxShadow: "0px 1px 5px rgba(255,255,255,1)",
+      boxShadow: "0px 1px 25px rgba(255,255,255,0.5)",
       borderLeft: "6px solid #FFF",
       borderRight: "1px solid #FFF",
       borderTop: "1px solid #FFF",
@@ -142,7 +142,7 @@ const AppliedJobs = ({themePage}) => {
                 return (
                   <Box p={5} className={themePage ? classes.wrapperdark : classes.wrapperlight} m={1} 
                   borderRadius={'25px'}
-                  style={{ backgroundColor: themePage ? "#0F1C28" : theme.palette.light.main }}
+                  style={{ backgroundColor: themePage ? "#0B0B15" : theme.palette.light.main }}
                   >
                     <Grid container alignContent="center" >
                       <Grid item container xs direction="column">
