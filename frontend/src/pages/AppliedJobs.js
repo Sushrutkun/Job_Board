@@ -10,6 +10,7 @@ import Searchbar from '../components/searchbar/searchbar';
 import './Jobs/loading.css'
 import axios from 'axios';
 import PagePagination from '../components/pagination/pagePagination';
+import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 const useStyles = makeStyles(() => ({
   wrapperlight: {
@@ -177,14 +178,34 @@ const AppliedJobs = ({themePage}) => {
                           </Typography>
                         </Grid>
                         <Grid item>
-                          <Button variant="outlined" onClick={() => deleteIt(_id)} 
-                          style={{
-                            color:themePage ? theme.palette.light.main:theme.palette.dark.main,
-                            borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
-                            }} fontSize="20px">
+                          <Box mt={1} display={"flex"} flexDirection={"row"}>
+                            <Typography pt={1} pr={1} fontSize={'27px'}
+                            style={{
+                              cursor: "pointer",
+                              color:themePage ? theme.palette.light.main:theme.palette.dark.main,
+                              }}>
+                              <BsFillArrowRightSquareFill />
+                            </Typography>
+                            <Button variant="outlined" pt={1} pr={1} fontSize={'27px'} onClick={() => deleteIt(_id)} 
+                            style={{
+                              color:themePage ? theme.palette.light.main:theme.palette.dark.main,
+                              borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
+                              }}>
+                                <AiOutlineDelete />
+                            </Button>
+                          </Box>
+                        </Grid>
+                        {/* <Grid item>
+                        <Box mt={1} display={"flex"} flexDirection={"row"} >
+                          <Button variant="outlined" pt={1} pr={1} fontSize={'27px'} onClick={() => deleteIt(_id)} 
+                            style={{
+                              color:themePage ? theme.palette.light.main:theme.palette.dark.main,
+                              borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
+                              }}>
                             <AiOutlineDelete />
                           </Button>
-                        </Grid>
+                          </Box>
+                        </Grid> */}
                       </Grid>
 
                     </Grid>
