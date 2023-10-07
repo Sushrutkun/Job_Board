@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import theme from "../../theme/theme"
 import CloseIcon from '@material-ui/icons/Close';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 const useStyles = makeStyles(() => ({
@@ -99,6 +100,17 @@ const NewJob = ({ showModal, setshowModal }) => {
             job_description: '',
             skills: ''
         });
+        toast.success('Job Posted Successfully', {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: theme ? "dark" : "light",
+        });
+        setshowModal(false);
         setSelectedSkills([]);
     };
     const classes = useStyles();
