@@ -146,9 +146,9 @@ const ViewProfile = ({ setShowProfile, themePage }) => {
                         <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
                             Email : {email}
                         </Typography>
-                        <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
+                        {/* <Typography style={{ color: themePage ? theme.palette.light.main : theme.palette.dark.main }}>
                             Password : {password}
-                        </Typography>
+                        </Typography> */}
 
                     </Container>
                 </Container>

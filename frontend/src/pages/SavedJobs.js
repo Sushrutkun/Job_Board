@@ -187,11 +187,12 @@ const SavedJobs = ({themePage}) => {
                               <BsBookmarkStarFill />
                             </Typography>
                             <Button variant="outlined" onClick={() => deleteIt(_id)}
-                            style={{
-                              color:themePage ? theme.palette.light.main:theme.palette.dark.main,
-                              borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
-                              }}>
-                              <AiOutlineDelete />
+                              style={{
+                                color:themePage ? theme.palette.light.main:theme.palette.dark.main,
+                                borderColor:themePage? theme.palette.light.main:theme.palette.dark.main,
+                                // fontSize:'large',
+                                }}>
+                                <AiOutlineDelete />
                             </Button>
                           </Box>
                         </Grid>

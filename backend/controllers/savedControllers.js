@@ -9,8 +9,8 @@ export const addToWishlist = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("All fields are mandatory !");
     }
-    const revWishlist = await saved.findOne({ "title": title , "company": company ,"dateAdded": dateAdded });
     const userFound = await sign.findOne({"username":username});
+    const revWishlist = await saved.findOne({ "user":userFound._id,"title": title , "company": company ,"dateAdded": dateAdded });
     // console.log(userFound);
     if (revWishlist) {
         try {

@@ -9,8 +9,8 @@ export const addToApplied = asyncHandler(async (req, res) => {
         res.status(400);
         throw new Error("All fields are mandatory !");
     }
-    const reApplied = await applied.findOne({ "title": title , "company": company ,"dateAdded": dateAdded });
     const userFound = await sign.findOne({"username":username});
+    const reApplied = await applied.findOne({ "user":userFound._id,"title": title , "company": company ,"dateAdded": dateAdded });
     if(!reApplied) {
         try{
             const appliedJobs = await applied.create({
