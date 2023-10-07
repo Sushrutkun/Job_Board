@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Box, Button, IconButton, TextField } from '@mui/material';
+import { Avatar, Box, Button, Container, Grid, IconButton, TextField, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 // const URL=process.env.REACT_APP_URL_API;
 
@@ -52,8 +52,8 @@ function LoginPage() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme:'light',
-        });
+        theme: 'light',
+      });
     }
     // const name = e.target.elements.username;
     // const password = e.target.elements.password;
@@ -94,15 +94,17 @@ function LoginPage() {
           paddingTop: '50px',
           paddingBottom: '10px',
         }}>
-        {/* <Box className="signup-box" > */}
-        <h1 className="signup" style={{
+        <Typography className="signup" style={{
           textAlign: 'center',
           marginBottom: '10px',
           marginTop: "0px",
           fontSize: '28px',
           color: '#333', // Customize the text color
-        }}>Login</h1>
-        <IconButton className="imgcontainer" style={{ marginBottom: '50px' }}>
+        }}>Login</Typography>
+
+        <IconButton className="imgcontainer"
+        // style={{ marginBottom: '50px' }}
+        >
           <Avatar
             src="https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg"
             alt="Avatar" className="avatar" sx={{
@@ -110,35 +112,41 @@ function LoginPage() {
               height: '90px', // Set the avatar height
             }} />
         </IconButton>
-        <div className="container" style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center"
-        }}>
-          <TextField id="outlined-basic" label="Name" variant="outlined" type="text" placeholder="Enter Username" className='uname' required maxLength="11" value={username} onChange={(e) => handleusernameChange(e)} sx={{ width: '150%', marginBottom: '15px' }} />
-          <TextField id="outlined-basic" label="Password" variant="outlined" type="password" placeholder="Enter Password" name="psw" required value={password} onChange={(e) => handlepasswordChange(e)}
-            sx={{ width: '150%', marginBottom: '20px' }} />
-          <Button variant="outlined" disableElevation type="submit" style={{
-            width: '100%',
-            fontSize: '20px',
-            padding: '10px',
-          }}>Login</Button>
-          <a
-            type="submit"
-            style={{
+
+        <Grid item
+          className="container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center"
+          }}>
+          <Container>
+            <TextField id="outlined-basic" label="Name" variant="outlined" type="text" placeholder="Enter Username" className='uname' required maxLength="11" fullWidth value={username} onChange={(e) => handleusernameChange(e)}
+              sx={{ marginBottom: '15px' }} />
+            <TextField id="outlined-basic" label="Password" variant="outlined" type="password" placeholder="Enter Password" name="psw" required value={password} onChange={(e) => handlepasswordChange(e)} fullWidth
+              sx={{ marginBottom: '15px' }} />
+            <Button variant="outlined" disableElevation type="submit" style={{
               width: '100%',
-              fontSize: '15px',
-              color: 'blue',
-              padding: '20px',
-              // paddingRight:'100px',
-              alignItems: 'flex-end',
-              cursor: 'pointer'
-            }}
-            onClick={() => navigate('/signup')}
-          >
-            New User Register here...
-          </a>
-        </div>
+              fontSize: '20px',
+              padding: '10px',
+            }}>Login</Button>
+            <Typography
+              type="submit"
+              style={{
+                width: '100%',
+                fontSize: '15px',
+                color: 'blue',
+                padding: '20px',
+                // paddingRight:'100px',
+                alignItems: 'flex-end',
+                cursor: 'pointer'
+              }}
+              onClick={() => navigate('/signup')}
+            >
+              New User Register here...
+            </Typography>
+          </Container>
+        </Grid>
       </form>
     </Box>
   );

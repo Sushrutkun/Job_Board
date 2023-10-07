@@ -50,7 +50,6 @@ const NewJob = ({ showModal, setshowModal }) => {
         }
     };
 
-
     const handleSubmitForm = (formData) => {
         console.log(formData)
         axios.post(`${BASE_URL}api`, formData)
@@ -64,13 +63,7 @@ const NewJob = ({ showModal, setshowModal }) => {
                 console.error('Error:', error);
             });
     };
-    // const state =useState();
-    // let [count,setCount]=useState("hidden");
-    // console.log(count);
-    // const showModal =()=>
-    // {
-    //     setCount("visible");
-    // };
+
     const [formData, setFormData] = useState({
         job_title: '',
         company_commitment: 'Full-time',
